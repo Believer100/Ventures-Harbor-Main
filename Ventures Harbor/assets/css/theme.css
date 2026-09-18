@@ -1,0 +1,98 @@
+/* VENTURES HARBOR — SHARED THEME (2026 design system) */
+
+:root {
+  /* Brand — ink navy + blue + gold */
+  --navy-950: #050C15;
+  --navy-900: #081421;
+  --navy-800: #0D1D2E;
+  --navy-700: #16233A;
+  --navy-600: #1D4ED8;
+  --navy-500: #2563EB;
+  --blue-600: #1D4ED8;
+  --blue-500: #2563EB;
+  --blue-400: #3B82F6;
+  --blue-300: #60A5FA;
+  --gold-600: #8A6D00;
+  --gold-500: #C79E0F;
+  --gold-400: #F5C518;
+  --gold-300: #F7D45A;
+
+  /* Semantic */
+  --success-bg: #E7F7EF;
+  --success-text: #157347;
+  --success-dark: #0E5233;
+  --warning-bg: rgba(245, 197, 24, .16);
+  --warning-text: #8A6D00;
+  --danger-bg: #FDECEA;
+  --danger-text: #B3261E;
+  --info-bg: #EFF4FF;
+  --info-text: #2563EB;
+  --purple-bg: #F1EEFE;
+  --purple-text: #6D3BEB;
+  --orange-bg: #FFF3E8;
+  --orange-text: #E2711D;
+
+  /* Neutrals */
+  --white: #ffffff;
+  --gray-50: #F7F8FA;
+  --gray-100: #F1F4F8;
+  --gray-200: #E8ECF2;
+  --gray-300: #DCE3EC;
+  --gray-400: #7A8AA3;
+  --gray-500: #5A6B85;
+  --gray-600: #44557A;
+  --gray-700: #33415C;
+  --gray-800: #16233A;
+  --gray-900: #081421;
+
+  /* Typography — single family, matching the homepage */
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Radius — the design leans rounder than the old theme */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 26px;
+  --radius-full: 999px;
+
+  /* Shadows — softer, cooler, cast from ink navy */
+  --shadow-xs: 0 1px 2px rgba(8, 20, 33, .05);
+  --shadow-sm: 0 2px 10px rgba(8, 20, 33, .04);
+  --shadow-md: 0 8px 24px rgba(8, 20, 33, .08);
+  --shadow-lg: 0 20px 44px rgba(8, 20, 33, .10);
+  --shadow-xl: 0 24px 50px rgba(8, 20, 33, .12);
+  --shadow-2xl: 0 32px 70px rgba(8, 20, 33, .16);
+  --shadow-navy: 0 10px 30px rgba(37, 99, 235, .28);
+  --shadow-navy-lg: 0 18px 44px rgba(37, 99, 235, .38);
+
+  --transition: all .3s cubic-bezier(.4, 0, .2, 1);
+
+  --brand-accent: var(--gold-400);
+  --brand-accent-strong: var(--gold-600);
+
+  /* Design-layer aliases used by vh-pages.css */
+  --vh-ink: #081421;
+  --vh-blue: #2563EB;
+  --vh-sky: #3B82F6;
+  --vh-gold: #F5C518;
+  --vh-gold-ink: #8A6D00;
+  --vh-slate: #5A6B85;
+  --vh-line: #E8ECF2;
+  --vh-surface: #F7F8FA;
+}
+
+body {
+  background: var(--white);
+  color: var(--gray-900);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--gold-400);
+  color: var(--vh-ink);
+}

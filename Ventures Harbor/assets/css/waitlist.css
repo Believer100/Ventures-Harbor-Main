@@ -1,0 +1,182 @@
+/* VENTURES HARBOR — WAITLIST PAGE
+   Open seats lead the page and are deliberately the loudest thing on it: they are
+   time-limited and contested, so they get the amber treatment used nowhere else in
+   the panel. The "Assets you are waiting on" list below is quiet by comparison —
+   nothing there needs a decision today. */
+
+.wl-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: 1.75rem;
+}
+.wl-header h1 { margin: 0 0 0.25rem; font-size: 1.6rem; color: #081421; }
+
+.wl-section-head { margin-bottom: 1rem; }
+.wl-section-head h2 { margin: 0 0 0.2rem; font-size: 1.05rem; color: #081421; }
+.wl-section-head p { margin: 0; font-size: 0.85rem; color: #5A6B85; }
+
+/* A vacated seat is capital, not a job — the client asked for that said plainly
+   rather than discovered at the claim. Gold, because Join Waitlist is gold; navy
+   text, because white on --gold-400 is 1.63:1. Deliberately a tint and not the
+   solid amber of .wl-slot: an open seat must stay the loudest thing on the page. */
+/* GREEN, not the gold it used to be — and the reason is that the gold was being
+   used twice on one screen. `.wl-status` (the WAITING chip on the right of every
+   row) is amber, and this note sat directly beside it in the same amber, so the two
+   read as one kind of thing: "Second green colour rakho line ka, mad side waiting ka,
+   not this one" (client, 7 Sep 2026). Amber now means STATUS here and nothing else;
+   this line is explanatory, which is what the green says. Keep them apart. */
+.wl-note {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  margin: 0.7rem 0 0; padding: 0.6rem 0.8rem;
+  border: 1px solid #A7E3C0; border-left: 3px solid #059669;
+  border-radius: 10px; background: #F2FDF6;
+  font-size: 0.85rem; line-height: 1.45; color: #14532D;
+}
+.wl-note svg { flex: none; margin-top: 0.12rem; color: #059669; }
+.wl-note strong { color: #081421; }
+
+/* The line is shown once when an Asset is added and then fades — see wlFlashNote().
+   It animates from `.is-in` being added a frame AFTER `hidden` is cleared; setting
+   both together makes the browser skip the transition. `hidden` (not opacity alone)
+   is what finally takes it out of the layout, so it leaves no gap above the list. */
+.wl-flash {
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.wl-flash.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-flash { transition: none; transform: none; }
+}
+
+.wl-slots { margin-bottom: 2.25rem; }
+.wl-slot-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.wl-slot {
+  border: 1.5px solid #FBD9A5; border-radius: 16px; padding: 1.35rem 1.5rem;
+  background: linear-gradient(180deg, #FFFCF6 0%, #FFF 65%);
+}
+.wl-slot--mine { border-color: #2563EB; background: linear-gradient(180deg, #F4F8FF 0%, #FFF 65%); }
+
+.wl-slot-top { display: flex; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap; }
+.wl-slot-top h3 { margin: 0.5rem 0 0.2rem; font-size: 1.1rem; color: #081421; }
+.wl-slot-meta { margin: 0; font-size: 0.82rem; color: #5A6B85; }
+
+.wl-badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em;
+  text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 999px;
+}
+.wl-badge--silent { background: #EEF2FF; color: #3730A3; }
+.wl-badge--active { background: #ECFDF5; color: #047857; }
+
+.wl-slot-figures { display: flex; gap: 1.75rem; text-align: right; }
+.wl-slot-figures strong { display: block; font-size: 1.15rem; color: #081421; }
+.wl-slot-figures span { font-size: 0.72rem; color: #7A8BA5; text-transform: uppercase; letter-spacing: 0.03em; }
+
+/* The exit reason is the thing the client asked to be carried to the waitlist,
+   so it is quoted rather than summarised. */
+.wl-reason {
+  margin: 1rem 0 0; padding: 0.75rem 0.9rem;
+  background: #FFF7ED; border-left: 3px solid #F59E0B; border-radius: 0 8px 8px 0;
+}
+.wl-reason-label {
+  display: block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.04em; color: #B4690E; margin-bottom: 0.2rem;
+}
+.wl-reason p { margin: 0; font-size: 0.88rem; color: #33415C; font-style: italic; }
+.wl-reason--none { background: #F7F8FA; border-left-color: #D8DFE9; }
+.wl-reason--none p { color: #7A8BA5; }
+
+.wl-slot-note { margin: 0.85rem 0 1.1rem; font-size: 0.8rem; color: #5A6B85; }
+
+.wl-slot-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.wl-hold {
+  display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.85rem;
+  padding: 0.6rem 0.9rem; background: #EFF4FF; border-radius: 10px;
+}
+.wl-hold-timer {
+  font-size: 1.35rem; font-weight: 800; color: #2563EB;
+  font-variant-numeric: tabular-nums;   /* so the countdown does not jitter */
+}
+.wl-hold-label { font-size: 0.8rem; color: #33415C; }
+
+.wl-entry-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.wl-entry {
+  display: flex; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap;
+  border: 1.5px solid #E8ECF2; border-radius: 14px; padding: 1.1rem 1.25rem; background: #FFF;
+}
+.wl-entry--joined { border-color: #BBF7D0; background: #F7FFFA; }
+.wl-entry-main { flex: 1; min-width: 220px; }
+.wl-entry h3 { margin: 0 0 0.2rem; font-size: 1rem; }
+.wl-entry h3 a { color: #081421; text-decoration: none; }
+.wl-entry h3 a:hover { color: #2563EB; }
+.wl-entry-meta { margin: 0 0 0.5rem; font-size: 0.8rem; color: #5A6B85; }
+.wl-entry-stats { display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.78rem; color: #33415C; margin-bottom: 0.6rem; }
+.wl-entry-bar { height: 5px; background: #EEF1F6; border-radius: 999px; overflow: hidden; max-width: 340px; }
+.wl-entry-bar i { display: block; height: 100%; background: #2563EB; border-radius: 999px; }
+
+.wl-entry-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+.wl-status {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  color: #B4690E; background: #FFF7ED; padding: 0.25rem 0.6rem; border-radius: 999px;
+}
+.wl-status--joined { color: #047857; background: #ECFDF5; }
+
+.wl-empty { text-align: center; padding: 3.5rem 1.5rem; }
+.wl-empty-icon {
+  width: 64px; height: 64px; margin: 0 auto 1rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #F1F4F9; color: #7A8BA5;
+}
+.wl-empty h3 { margin: 0 0 0.4rem; font-size: 1.1rem; color: #081421; }
+.wl-empty p { margin: 0 auto 1.25rem; max-width: 460px; font-size: 0.88rem; color: #5A6B85; }
+
+@media (max-width: 640px) {
+  .wl-slot-top { flex-direction: column; }
+  .wl-slot-figures { text-align: left; gap: 1.25rem; }
+  .wl-entry-side { align-items: flex-start; flex-direction: row; }
+}
+
+/* The claim confirmation. Deliberately not a browser confirm(): the role is the
+   whole point of the dialog and it needs a badge, two figures and the length of
+   the hold, none of which survive a plain-text prompt. */
+.wl-confirm-lead {
+  margin: 0.7rem 0 0; font-size: 0.92rem; line-height: 1.55; color: #33425C;
+}
+.wl-confirm-lead strong { color: #081421; }
+
+.wl-confirm-figures {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  margin: 1rem 0 0; padding: 0.85rem 1rem;
+  background: #F7F9FC; border: 1px solid #E4EAF2; border-radius: 12px;
+}
+.wl-confirm-figures strong { display: block; font-size: 1.15rem; color: #081421; }
+.wl-confirm-figures span {
+  font-size: 0.7rem; color: #7A8BA5; text-transform: uppercase; letter-spacing: 0.03em;
+}
+
+/* The hold is the consequence a mis-click actually has — it locks the seat away
+   from everybody else — so it gets the amber the open seats use, not body grey. */
+.wl-confirm-hold {
+  margin: 0.9rem 0 0; padding: 0.7rem 0.9rem;
+  background: #FFF7ED; border-left: 3px solid #F59E0B; border-radius: 0 8px 8px 0;
+  font-size: 0.85rem; line-height: 1.5; color: #7A4A08;
+}
+.wl-confirm-hold strong { color: #081421; }
+
+.wl-confirm-ask {
+  margin: 1rem 0 0; font-size: 0.95rem; font-weight: 700; color: #081421;
+}
+
+/* Where this person stands with an ACTIVE seat they have applied for. Not the
+   amber of an open seat: an application in the founder's hands needs nothing from
+   the applicant, so it should read as settled rather than as something to act on. */
+.wl-applied {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  margin: 0.85rem 0 0.9rem; padding: 0.65rem 0.85rem;
+  background: #F1F7F3; border: 1px solid #CFE7D8; border-radius: 10px;
+  font-size: 0.85rem; line-height: 1.45; color: #1F5137;
+}
+.wl-applied svg { flex: none; margin-top: 0.1rem; color: #2E8B57; }
+.wl-applied--closed { background: #F7F8FA; border-color: #DDE3EC; color: #44557A; }
+.wl-applied--closed svg { color: #7A8BA5; }

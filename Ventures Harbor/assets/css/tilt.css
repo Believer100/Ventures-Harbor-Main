@@ -1,0 +1,102 @@
+
+
+.vh-card,
+.venture-card {
+  position: relative;
+  will-change: transform;
+}
+
+.vh-card,
+.venture-card {
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+.vh-card.is-tilt-anim,
+.venture-card.is-tilt-anim {
+  transition: box-shadow .35s ease, border-color .35s ease;
+  z-index: 2;
+}
+
+.vh-card.is-tilting,
+.venture-card.is-tilting {
+  box-shadow: 0 26px 56px rgba(8, 20, 33, .15);
+  border-color: rgba(245, 197, 24, .55);
+}
+
+/* 3D depth: content lifts off the card face */
+.vh-card.is-tilt-anim,
+.venture-card.is-tilt-anim {
+  transform-style: preserve-3d;
+}
+.venture-card.is-tilt-anim { overflow: visible; }
+
+.venture-card.is-tilt-anim::before { opacity: 0; }
+
+.vh-card.is-tilt-anim > *:not(.vh-tilt-fx),
+.venture-card.is-tilt-anim > *:not(.vh-tilt-fx) {
+  transform: translateZ(calc(14px * var(--tilt-k, 0)));
+}
+
+.vh-card.is-tilt-anim > *:first-child,
+.venture-card.is-tilt-anim > .vc-header {
+  transform: translateZ(calc(30px * var(--tilt-k, 0)));
+}
+
+.vh-card.is-tilt-anim > .vc-sample-ribbon {
+  transform: translateZ(calc(14px * var(--tilt-k, 0)));
+}
+.vh-card.is-tilt-anim > .vc-header {
+  transform: translateZ(calc(30px * var(--tilt-k, 0)));
+}
+
+.vh-card.is-tilt-anim > [data-tilt-actions],
+.venture-card.is-tilt-anim > .vc-actions {
+  transform: translateZ(calc(22px * var(--tilt-k, 0)));
+}
+
+/* Cursor-following light */
+.vh-tilt-fx {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--tilt-k, 0);
+  z-index: 0;
+}
+
+/* Soft interior sheen following the cursor. */
+.vh-tilt-fx::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--tilt-mx, 50%) var(--tilt-my, 50%),
+    rgba(245, 197, 24, .18),
+    rgba(245, 197, 24, 0) 45%
+  );
+}
+
+.vh-tilt-fx::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: radial-gradient(
+    340px circle at var(--tilt-mx, 50%) var(--tilt-my, 50%),
+    rgba(255, 226, 130, 1),
+    rgba(245, 197, 24, .9) 28%,
+    rgba(245, 197, 24, 0) 72%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vh-card,
+  .venture-card { transition: none; }
+  .vh-tilt-fx { display: none; }
+}

@@ -1,0 +1,1012 @@
+/* ── VENTURE DETAIL CSS ─────────────────────────────── */
+.container { max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+.vd-breadcrumb { font-size:0.82rem; color:#5A6B85; display:flex; align-items:center; gap:0.4rem; }
+.vd-breadcrumb a { color:#2563EB; text-decoration:none; }
+.vd-breadcrumb a:hover { text-decoration:underline; }
+
+/* Hero (doubles as the venture's cover image/banner) */
+
+.vd-hero {
+  position: relative;
+  background: linear-gradient(135deg, #F7F8FA 0%, #eef2f7 100%);
+  background-size: cover;
+  background-position: center;
+  color: #081421;
+  border-bottom: 1px solid #E8ECF2;
+  padding: calc(var(--navbar-height, 68px) + 2.5rem) 0 4rem;
+  min-height: 400px;
+  transition: background-image 0.2s ease;
+  overflow: hidden;
+}
+
+.vd-hero--gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(460px, 62vh, 660px);
+  padding-bottom: 2.25rem;
+}
+
+.vd-hero--gallery .vd-hero-container {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+
+  width: 100%;
+}
+.vd-hero--gallery .vd-progress-section,
+.vd-hero--gallery .vd-big-icon,
+.vd-hero--gallery .vd-hero-controls { pointer-events: auto; }
+
+.vd-edit-cover-btn {
+  position:absolute; top:calc(var(--navbar-height, 68px) + 1rem); right:1.5rem; z-index:4;
+  display:inline-flex; align-items:center; gap:0.45rem;
+  background:rgba(8,20,33,0.55); backdrop-filter:blur(4px);
+  color:#fff; border:1px solid rgba(255,255,255,0.35); border-radius:999px;
+  font-size:0.8rem; font-weight:600; padding:0.5rem 1rem 0.5rem 0.85rem;
+  cursor:pointer; transition:background 0.15s ease, transform 0.15s ease; white-space:nowrap;
+}
+.vd-edit-cover-btn:hover { background:rgba(8,20,33,0.78); transform:translateY(-1px); }
+.vd-edit-cover-btn.hidden { display:none; }
+.vd-hero-inner { display:flex; flex-direction:column; gap:1.5rem; }
+.vd-title-row { display:flex; gap:1.25rem; align-items:flex-start; }
+
+.vd-big-icon { position:relative; width:64px; height:64px; border-radius:16px; background:#E8ECF2; display:flex; align-items:center; justify-content:center; font-size:2rem; flex-shrink:0; }
+.vd-big-icon img { width:100%; height:100%; object-fit:cover; border-radius:inherit; display:block; }
+.vd-logo-edit-btn {
+  position:absolute; bottom:-4px; right:-4px; width:24px; height:24px; border-radius:50%;
+  background:#2563EB; color:#fff; border:2px solid #fff; cursor:pointer; font-size:0.7rem;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 2px 8px rgba(8,20,33,0.25); transition:background 0.15s ease, transform 0.15s ease;
+}
+.vd-logo-edit-btn:hover { background:#2e6fd6; transform:scale(1.06); }
+.vd-logo-edit-btn.hidden { display:none; }
+.vd-title-info h1 { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900; margin:0 0 0.5rem; }
+.vd-title-meta { display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center; }
+.vd-meta-pill { font-size:0.82rem; color:#5A6B85; }
+.vd-progress-section { background:#F1F4F8; border:1px solid #E8ECF2; border-radius:14px; padding:1.25rem; }
+.vd-prog-labels { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; }
+.vd-raised { font-size:1.1rem; font-weight:700; color:#16a34a; }
+.vd-prog-pct { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:1.5rem; font-weight:900; color:#081421; }
+.vd-target { font-size:0.85rem; color:#5A6B85; }
+.vd-prog-bar { height:8px; background:#E8ECF2; border-radius:4px; overflow:hidden; }
+.vd-prog-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,#16a34a,#22c55e); transition:width 1.5s ease; }
+.vd-prog-sub { display:flex; gap:1.5rem; margin-top:0.6rem; font-size:0.82rem; color:#5A6B85; }
+
+/* WhatsApp button on an application card. Brand green so the founder's eye finds the
+   one action that reaches a person, rather than it reading as a third neutral outline
+   button beside View Resume. */
+.vd-app-wa {
+  border-color: #25D366 !important;
+  color: #0B6B34 !important;
+  background: #F0FDF4 !important;
+}
+.vd-app-wa:hover { background: #DCFCE7 !important; border-color: #1DA851 !important; }
+
+/* SIDEBAR CAPACITY BARS (#vdCapacityBox)
+   The block reuses the card's .vc-cap-* markup and stylesheet so the split reads the same
+   here as it does on a listing card. Card sizing is tuned for a dense grid tile though —
+   11px labels on a 5px track — which in a full-width sidebar, directly under the 8px
+   funding bar above, looked like an afterthought. These overrides scale it to the column
+   it actually sits in; the colours and structure stay the card's. */
+#vdCapacityBox.vh-vcard .vc-capacity {
+  gap: 0.7rem;
+  padding: 0.8rem 0.9rem;
+  margin: 0;
+  border: 1px solid #E8ECF2;
+  border-radius: 10px;
+  background: #FBFCFE;
+}
+#vdCapacityBox.vh-vcard .vc-cap-row { gap: 0.35rem 0.6rem; }
+#vdCapacityBox.vh-vcard .vc-cap-label { font-size: 0.7rem; letter-spacing: .05em; }
+#vdCapacityBox.vh-vcard .vc-cap-dot { width: 9px; height: 9px; }
+#vdCapacityBox.vh-vcard .vc-cap-figs { font-size: 0.8rem; }
+#vdCapacityBox.vh-vcard .vc-cap-state { font-size: 0.62rem; }
+/* Matches .vd-prog-bar above it — two bars in one column that disagree on height read
+   as two unrelated widgets. */
+#vdCapacityBox.vh-vcard .vc-cap-track { height: 8px; border-radius: 4px; background: #E8ECF2; }
+#vdCapacityBox.vh-vcard .vc-cap-fill  { border-radius: 4px; }
+#vdCapacityBox.vh-vcard .vc-cap-fill--silent { background: linear-gradient(90deg,#16a34a,#22c55e); }
+#vdCapacityBox.vh-vcard .vc-cap-fill--active { background: linear-gradient(90deg,#2563EB,#60a5fa); }
+/* An empty bucket still has to look like a bucket, or "Active 0 / 30,00,000" reads as a
+   rendering failure rather than as room available. */
+#vdCapacityBox.vh-vcard .vc-cap-fill[style*="width:0%"] { box-shadow: inset 0 0 0 1px #E8ECF2; }
+#vdCapacityBox.vh-vcard .vc-cap-note { margin-top: 0.7rem; font-size: 0.78rem; }
+
+/* LOADING SKELETON
+   This page's markup starts empty. It used to ship literal sample values — "Car Detailing
+   Franchise", "₹2,10,000", "21%", founder "Ravi Sharma" — which the browser painted on
+   every venture before venture-detail.js could overwrite them with the real ones, so each
+   listing flashed the same wrong figures for a beat. One flag governs the whole page:
+   body.vd-loading, dropped by clearLoadingState() as soon as the detail fetch lands.
+   Bars reuse .skeleton (main.css) for the shimmer. */
+.vd-skel-block { display:none; }
+body.vd-loading .vd-skel-block { display:block; }
+body.vd-loading .vd-title-info h1,
+body.vd-loading .vd-title-meta,
+body.vd-loading .vd-prog-labels,
+body.vd-loading .vd-prog-bar,
+body.vd-loading .vd-prog-sub { display:none; }
+
+/* Sidebar join card + anything else whose value is a bare text node: the element keeps its
+   own box and wears a shimmer until it is filled. Inert once the flag is gone. */
+body.vd-loading .vd-skel-fill {
+  display:inline-block; min-width:88px; min-height:1.05em; border-radius:6px; color:transparent;
+  background:linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+  background-size:200% 100%; animation:skeleton-shimmer 1.5s infinite;
+}
+body.vd-loading .vd-skel-fill--sm { min-width:44px; }
+
+.vd-skel { display:inline-block; border-radius:6px; }
+.vd-skel-row { display:flex; align-items:center; gap:0.6rem; }
+.vd-skel-row--between { justify-content:space-between; }
+.vd-skel-row--sub { gap:1.5rem; margin-top:0.6rem; }
+.vd-skel--title { width:min(340px,72%); height:clamp(1.4rem,3vw,2.2rem); border-radius:8px; margin:0 0 0.5rem; }
+.vd-skel--pill  { width:96px;  height:22px; border-radius:999px; }
+.vd-skel--chip  { width:88px;  height:14px; }
+.vd-skel--money { width:120px; height:18px; }
+.vd-skel--pct   { width:64px;  height:26px; }
+.vd-skel--bar   { width:100%;  height:8px;  border-radius:4px; }
+
+.vd-hero--has-cover { color:#fff; border-bottom:none; }
+
+.vd-hero--has-cover .vd-title-info h1 { color:#fff; }
+.vd-hero--has-cover .vd-big-icon { background:rgba(255,255,255,0.12); }
+.vd-hero--has-cover .vd-meta-pill { color:rgba(255,255,255,0.8); }
+.vd-hero--has-cover .vd-progress-section { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); }
+.vd-hero--has-cover .vd-raised { color:#F5C518; }
+.vd-hero--has-cover .vd-prog-pct { color:#fff; }
+.vd-hero--has-cover .vd-target,
+.vd-hero--has-cover .vd-prog-sub { color:rgba(255,255,255,0.75); }
+.vd-hero--has-cover .vd-prog-bar { background:rgba(255,255,255,0.15); }
+
+.vd-hero--has-cover .vd-prog-fill { background:linear-gradient(90deg,#22c55e,#4ade80); }
+
+.vd-hero--gallery .vd-title-info h1 { text-shadow:0 2px 14px rgba(8,20,33,0.55); }
+.vd-hero--gallery .vd-title-meta .vd-meta-pill { text-shadow:0 1px 8px rgba(8,20,33,0.6); }
+.vd-hero--gallery .vd-progress-section {
+  background:rgba(8,20,33,0.42);
+  border-color:rgba(255,255,255,0.18);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.vd-hero--gallery .vd-big-icon { background:rgba(8,20,33,0.45); backdrop-filter:blur(6px); }
+
+@media (max-width: 600px) {
+  .vd-hero--gallery { min-height:clamp(440px, 70vh, 600px); padding-bottom:1.5rem; }
+  .vd-hero-inner { gap:1.1rem; }
+  .vd-title-row { gap:0.85rem; }
+  .vd-big-icon { width:52px; height:52px; font-size:1.5rem; }
+  .vd-prog-labels { flex-wrap:wrap; gap:0.25rem 0.7rem; }
+  .vd-prog-labels .vd-target { flex-basis:100%; }
+  .vd-raised { font-size:1rem; }
+  .vd-prog-pct { font-size:1.3rem; }
+  .vd-prog-sub { flex-wrap:wrap; gap:0.3rem 1rem; }
+}
+
+#joinVentureBtn.btn--joined {
+  background:#DCFCE7; color:#15803D; border:1px solid #BBF7D0;
+}
+#joinVentureBtn.btn--joined:hover { background:#BBF7D0; }
+
+/* Fully funded with time left: the CTA becomes Join Waitlist and turns GOLD, matching
+   .btn-join--waitlist on the card. The client's reason: an investor should be able to
+   see that the Asset has changed state without reading the label. Navy text, not white
+   — gold on white fails contrast. */
+#joinVentureBtn.btn--waitlist {
+  background: linear-gradient(135deg, var(--gold-500, #C79E0F), var(--gold-400, #F5C518));
+  border: 1px solid var(--gold-500, #C79E0F);
+  color: var(--navy-900, #081421);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(245, 197, 24, 0.3);
+}
+#joinVentureBtn.btn--waitlist:hover {
+  background: linear-gradient(135deg, #B8900D, #EEBE10);
+  box-shadow: 0 8px 20px rgba(245, 197, 24, 0.45);
+}
+
+/* Layout */
+.vd-layout { display:grid; grid-template-columns:1fr 320px; gap:2rem; padding:2rem 1.5rem; }
+@media(max-width:900px){ .vd-layout { grid-template-columns:1fr; } }
+.vd-content { min-width:0; }
+
+.vd-tabs-bar { display:flex; gap:0; border-bottom:2px solid #E8ECF2; margin-bottom:1.5rem; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.vd-tabs-bar::-webkit-scrollbar { display:none; }
+
+.tab-btn { padding:0.75rem 0.85rem; border:none; background:none; cursor:pointer; font-size:0.9rem; font-weight:600; color:#5A6B85; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+.tab-btn.active { color:#2563EB; border-bottom-color:#2563EB; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+.tab-panel h3, .tab-panel h4 { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-weight:700; color:#081421; margin:1.25rem 0 0.6rem 0; }
+.tab-panel h3:first-child { margin-top:0; }
+
+.vd-description, .vd-requirements, .vd-summary { color:#33415C; line-height:1.7; font-size:0.9rem; white-space:pre-line; }
+
+.vd-summary { font-size:0.98rem; font-weight:600; color:#081421; margin-bottom:0.75rem; }
+.vd-summary:empty, .vd-description:empty { display:none; }
+
+/* Timeline */
+.vd-timeline { display:flex; flex-direction:column; gap:0; }
+.vd-tl-step { display:flex; gap:1rem; padding-bottom:1.25rem; position:relative; }
+.vd-tl-step::before { content:''; position:absolute; left:10px; top:20px; bottom:0; width:2px; background:#E8ECF2; }
+.vd-tl-step:last-child::before { display:none; }
+.vd-tl-dot { width:22px; height:22px; border-radius:50%; border:2px solid #E8ECF2; background:#fff; flex-shrink:0; margin-top:2px; }
+.vd-tl-dot--done { background:#16a34a; border-color:#16a34a; }
+.vd-tl-dot--active { background:#2563EB; border-color:#2563EB; box-shadow:0 0 0 4px rgba(37, 99, 235,0.15); }
+.vd-tl-step > div:last-child strong { font-size:0.9rem; color:#081421; }
+.vd-tl-step > div:last-child p { font-size:0.82rem; color:#5A6B85; margin:0.15rem 0 0; }
+
+/* Documents */
+.vd-docs { display:flex; flex-direction:column; gap:0.5rem; }
+.vd-doc-item { display:flex; align-items:center; gap:0.75rem; padding:0.75rem; background:#F7F8FA; border-radius:10px; border:1px solid #E8ECF2; font-size:0.85rem; color:#33415C; }
+
+/* Founder card — lives at the top of the Members tab since the two were merged */
+.vd-founder-card { display:flex; gap:1.5rem; align-items:flex-start; background:#F7F8FA; border:1.5px solid #E8ECF2; border-radius:14px; padding:1.5rem; margin-bottom:1.5rem; }
+/* overflow:hidden so an uploaded logo is clipped to the circle — this only ever
+   held initials before, so nothing needed clipping. */
+.founder-avatar-lg { width:72px; height:72px; border-radius:50%; overflow:hidden; background:linear-gradient(135deg,#2563EB,#2563EB); color:#fff; font-size:1.5rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.founder-info h3 { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:1.2rem; font-weight:800; color:#081421; margin:0 0 0.25rem; }
+.founder-city { color:#5A6B85; font-size:0.85rem; margin:0 0 0.6rem; }
+.founder-bio { color:#33415C; font-size:0.88rem; line-height:1.5; margin:0 0 0.75rem; }
+.founder-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+/* The name and its "Founder" badge share a line; the h3's own bottom margin
+   would otherwise push the badge off centre. */
+.vd-founder-name-row { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.25rem; }
+.vd-founder-name-row h3 { margin-bottom:0; }
+.vd-founder-badge { font-size:0.65rem; }
+
+/* Members */
+/* Section headings inside the Members tab ("Founder", "Partners") */
+.vd-members-heading { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:0.78rem; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:#5A6B85; margin:0 0 0.75rem; }
+.vd-members-heading + .vd-members-count { margin-top:-0.35rem; }
+.vd-members-count { color:#5A6B85; font-size:0.88rem; margin-bottom:1rem; }
+.vd-members-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:0.75rem; }
+.member-card { background:#F7F8FA; border:1.5px solid #E8ECF2; border-radius:12px; padding:1rem; text-align:center; }
+.member-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#2563EB,#2563EB); color:#fff; font-size:0.9rem; font-weight:700; display:flex; align-items:center; justify-content:center; margin:0 auto 0.5rem; }
+.member-name { font-weight:600; font-size:0.82rem; color:#081421; margin-bottom:0.2rem; }
+.member-investment { font-size:0.75rem; color:#5A6B85; margin-bottom:0.3rem; }
+/* The share this partner agreed to, frozen at the terms they joined on. */
+.member-equity {
+  display:inline-flex; align-items:center; gap:0.25rem;
+  font-size:0.72rem; font-weight:700; line-height:1;
+  padding:0.22rem 0.5rem; margin-bottom:0.35rem;
+  border-radius:999px; color:#166534;
+  background:rgba(22,163,74,0.10); border:1px solid rgba(22,163,74,0.28);
+}
+/* Same figure, but the founder has edited the listing since — the lock says it held. */
+.member-equity--locked {
+  color:var(--gold-600,#8A6D00);
+  background:rgba(245,197,24,0.16); border-color:rgba(245,197,24,0.55);
+}
+
+/* Meetup list */
+.vd-meetup-item { display:flex; gap:0.75rem; padding:1rem 0; border-bottom:1px solid #F1F4F8; }
+.vd-meetup-item:last-child { border-bottom:none; }
+.vd-meet-date { width:44px; height:44px; border-radius:10px; background:linear-gradient(135deg,#2563EB,#2563EB); display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
+.vd-meet-date span:first-child { font-size:0.6rem; color:rgba(255,255,255,0.7); text-transform:uppercase; }
+.vd-meet-date span:last-child { font-size:1.1rem; font-weight:900; color:#fff; }
+.vd-meet-info strong { font-size:0.9rem; color:#081421; display:block; margin-bottom:0.2rem; }
+.vd-meet-info span { font-size:0.78rem; color:#5A6B85; }
+
+/* Sidebar */
+
+.vd-sidebar {
+  position:sticky;
+  top:88px;
+  align-self:flex-start;
+  max-height:calc(100vh - 88px - 1.5rem);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
+@media(max-width:900px){ .vd-sidebar { position:static; max-height:none; overflow:visible; } }
+.vd-join-card h3 { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:1.1rem; font-weight:800; color:#081421; margin:0 0 1rem; }
+.vd-join-stats { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem; }
+.vd-join-stats div { text-align:center; background:#F7F8FA; padding:0.6rem; border-radius:10px; }
+.vd-join-stats span { display:block; font-size:0.72rem; color:#5A6B85; margin-bottom:0.2rem; text-transform:uppercase; }
+.vd-join-stats strong { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:0.92rem; font-weight:800; color:#081421; }
+.vd-funded-txt { text-align:center; font-size:0.82rem; color:#5A6B85; margin:0.5rem 0 0.75rem; }
+.vd-join-note { text-align:center; font-size:0.75rem; color:#7A8AA3; margin-top:0.5rem; margin-bottom:0; font-style:italic; }
+.vd-related-title { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:0.9rem; font-weight:700; color:#081421; margin:0 0 0.75rem; }
+.vd-related-card { background:#fff; border:1.5px solid #E8ECF2; border-radius:12px; padding:1rem; margin-bottom:0.75rem; text-decoration:none; display:block; transition:all 0.2s; }
+.vd-related-card:hover { border-color:#2563EB; box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+.vd-related-name { font-weight:700; font-size:0.85rem; color:#081421; margin-bottom:0.25rem; }
+.vd-related-meta { font-size:0.75rem; color:#5A6B85; }
+
+/* ── GROUP CHAT ── */
+.chat-locked { text-align:center; padding:3rem 1.5rem; color:#5A6B85; }
+.chat-locked-icon { font-size:2.4rem; margin-bottom:0.75rem; }
+.chat-locked h4 { margin:0 0 0.5rem; color:#081421; font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:1.05rem; }
+.chat-locked p { margin:0 0 1.25rem; font-size:0.88rem; max-width:340px; margin-left:auto; margin-right:auto; }
+
+.vd-chat-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 560px;
+  border: 1px solid #E8ECF2;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(8,20,33,0.05);
+}
+
+.vd-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.1rem;
+  background: linear-gradient(135deg, #2563EB, #2563EB);
+  color: #fff;
+  flex-shrink: 0;
+}
+.vd-chat-header-icon {
+  width: 38px; height: 38px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.vd-chat-header-title { font-weight: 700; font-size: 0.95rem; font-family:'Plus Jakarta Sans', system-ui, sans-serif; }
+.vd-chat-header-sub { font-size: 0.72rem; color: rgba(255,255,255,0.75); }
+
+.vd-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.1rem;
+  background: #eef2f9;
+  background-image:
+    radial-gradient(circle at 20px 20px, rgba(148,163,184,0.08) 2px, transparent 2px);
+  background-size: 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  scroll-behavior: smooth;
+}
+.vd-chat-messages::-webkit-scrollbar { width: 6px; }
+.vd-chat-messages::-webkit-scrollbar-thumb { background: rgba(8,20,33,0.15); border-radius: 3px; }
+
+.vd-chat-empty { text-align: center; color: #7A8AA3; font-size: 0.85rem; padding: 2rem 1rem; }
+
+.vd-chat-row { display: flex; gap: 0.55rem; align-items: flex-end; max-width: 100%; }
+.vd-chat-row--mine { flex-direction: row-reverse; }
+.vd-chat-row--new { animation: vdChatRowIn 0.22s ease-out; }
+@keyframes vdChatRowIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vd-chat-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #EFF4FF, #bfdbfe);
+  color: #2563EB;
+  font-size: 0.6rem;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.vd-chat-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.vd-chat-bubble-col { display: flex; flex-direction: column; max-width: 72%; }
+.vd-chat-row--mine .vd-chat-bubble-col { align-items: flex-end; }
+
+.vd-chat-sender {
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #2563EB;
+  margin-bottom: 2px;
+  padding-left: 0.2rem;
+}
+
+.vd-chat-bubble {
+  padding: 0.6rem 0.85rem;
+  border-radius: 16px 16px 16px 4px;
+  background: #fff;
+  color: #081421;
+  border: 1px solid #e5e9f0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  box-shadow: 0 1px 2px rgba(8,20,33,0.04);
+  word-break: break-word;
+}
+.vd-chat-row--mine .vd-chat-bubble {
+  background: linear-gradient(135deg, #2563EB, #2563EB);
+  color: #fff;
+  border: none;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.vd-chat-bubble img.vd-chat-image {
+  max-width: 220px;
+  max-height: 220px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  margin-top: 0.4rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.vd-chat-bubble img.vd-chat-image:hover { transform: scale(1.02); }
+
+.vd-chat-time {
+  font-size: 0.63rem;
+  color: #7A8AA3;
+  margin-top: 3px;
+  padding: 0 0.3rem;
+}
+
+.vd-chat-preview-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  background: #F7F8FA;
+  border-top: 1px solid #E8ECF2;
+  flex-shrink: 0;
+}
+.vd-chat-preview-thumb { position: relative; display: inline-block; }
+.vd-chat-preview-thumb img { max-height: 56px; border-radius: 8px; border: 1px solid #E8ECF2; display: block; }
+.vd-chat-preview-remove {
+  position: absolute; top: -7px; right: -7px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #ef4444; color: #fff; border: 2px solid #fff;
+  cursor: pointer; font-size: 0.65rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.vd-chat-preview-label { font-size: 0.78rem; color: #5A6B85; font-weight: 500; }
+
+.vd-chat-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border-top: 1px solid #E8ECF2;
+  background: #fff;
+  flex-shrink: 0;
+}
+.vd-chat-attach-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid #E8ECF2;
+  background: #F7F8FA;
+  cursor: pointer;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.vd-chat-attach-btn:hover { background: #eef2ff; border-color: #2563EB; }
+.vd-chat-input {
+  flex: 1;
+  border: 1.5px solid #E8ECF2;
+  border-radius: 24px;
+  padding: 0.6rem 1rem;
+  font-size: 0.86rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+  font-family: inherit;
+}
+.vd-chat-input:focus { border-color: #2563EB; }
+.vd-chat-send-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #2563EB, #2563EB);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(37, 99, 235,0.35);
+}
+.vd-chat-send-btn:hover:not(:disabled) { transform: scale(1.05); }
+.vd-chat-send-btn:disabled { background: #DCE3EC; box-shadow: none; cursor: not-allowed; }
+
+.vd-chat-footnote { font-size: 0.72rem; color: #7A8AA3; margin-top: 0.6rem; text-align: center; }
+
+@media (max-width: 600px) {
+  .vd-chat-wrap { height: 460px; }
+  .vd-chat-bubble-col { max-width: 82%; }
+}
+
+/* INTERESTED BUTTON + Q&A  (venture detail page) */
+
+.vd-interested {
+  width: 100%;
+  margin-top: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid #E4E9F0;
+  background: #fff;
+  color: #5A6B85;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.vd-interested svg { fill: none; stroke: currentColor; flex: none; }
+.vd-interested:hover { color: #E11D48; border-color: rgba(225, 29, 72, .4); }
+.vd-interested[aria-pressed="true"] {
+  color: #E11D48;
+  background: #FFF1F3;
+  border-color: rgba(225, 29, 72, .35);
+}
+.vd-interested[aria-pressed="true"] svg { fill: currentColor; }
+.vd-interested[disabled] { opacity: .55; cursor: default; }
+.vd-interested.is-popping svg { animation: vd-heart-pop .32s ease; }
+@keyframes vd-heart-pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Unanswered-question count on the Q&A tab. */
+.vd-tab-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 0.4rem;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #2563EB;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.vd-qna-intro p { margin: 0 0 1rem; font-size: 0.85rem; line-height: 1.6; color: #5A6B85; }
+
+.vd-qna-ask { margin-bottom: 1.5rem; }
+.vd-qna-ask-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.vd-qna-counter { font-size: 0.75rem; color: #94A3B8; }
+
+.vd-qna-locked {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding: 0.9rem 1.1rem;
+  background: #F7F9FC;
+  border: 1px solid #E8ECF2;
+  border-radius: 10px;
+}
+.vd-qna-locked p { margin: 0; font-size: 0.85rem; color: #5A6B85; }
+
+.vd-qna-list { display: flex; flex-direction: column; gap: 1rem; }
+.vd-qna-empty { font-size: 0.85rem; color: #94A3B8; padding: 1.5rem 0; text-align: center; }
+
+.vd-qna-item {
+  border: 1px solid #E8ECF2;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  background: #fff;
+}
+
+/* Q&A THREAD
+   Question, founder's answer and reply are one row shape (.qna-c) — avatar,
+   name-then-text, a meta line, and the heart pinned right — because they read as
+   the same thing; only the badge and the indent tell them apart. The indent is
+   `--qna-indent` in exactly one place so the answer, the reply list and the
+   "Awaiting the founder's reply" note can never drift apart from each other. */
+.vd-qna-item { --qna-av: 34px; --qna-indent: calc(34px + 0.7rem); }
+
+.qna-c { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.3rem 0; }
+.qna-av {
+  flex: none;
+  width: var(--qna-av); height: var(--qna-av);
+  border-radius: 999px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #EFF4FF;
+  color: #2563EB;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.qna-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.qna-av--sm { width: 26px; height: 26px; font-size: 0.62rem; }
+
+.qna-c-body { flex: 1; min-width: 0; }
+/* Name and message share a line, Instagram-style: the name is who is talking,
+   not a heading, so giving it a row of its own only pushed the words down. */
+.qna-c-text { font-size: 0.88rem; line-height: 1.55; color: #33415C; }
+.qna-name { font-weight: 700; color: #081421; margin-right: 0.4rem; }
+.qna-c-msg { white-space: pre-line; overflow-wrap: anywhere; }
+.qna-c--reply .qna-c-text { font-size: 0.83rem; }
+
+.qna-c-meta { display: flex; align-items: center; gap: 0.9rem; margin-top: 0.2rem; }
+.qna-act {
+  border: none; background: none; padding: 0; cursor: pointer;
+  font: inherit; font-size: 0.74rem; font-weight: 700; color: #5A6B85;
+}
+.qna-act:hover { color: #081421; text-decoration: underline; }
+.qna-act--del { color: #C0CAD8; font-weight: 600; }
+.qna-act--del:hover { color: #DC2626; }
+
+/* The heart. Hollow until you tap it, red and filled after — the button is the
+   whole of the like state, and there is no dislike beside it by design. The
+   count sits under the heart so the row's text width never shifts as tallies
+   grow. An empty span still reserves the line, so nothing jumps on first like. */
+.qna-like {
+  flex: none;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  width: 30px; padding: 2px 0;
+  border: none; background: none; cursor: pointer;
+  color: #94A3B8;
+  transition: color .15s, transform .15s;
+}
+.qna-like svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.qna-like:hover:not(:disabled) { color: #ED4956; transform: scale(1.08); }
+.qna-like:disabled { opacity: .55; cursor: default; }
+.qna-like.is-liked { color: #ED4956; }
+.qna-like.is-liked svg { fill: #ED4956; stroke: #ED4956; }
+.qna-like-n { font-size: 0.68rem; font-weight: 700; line-height: 1; min-height: 0.8em; }
+.qna-like:focus-visible { outline: 2px solid #2563EB; outline-offset: 2px; border-radius: 6px; }
+
+/* The founder's answer: the one tinted row in the thread, so "who is allowed to
+   answer" is legible without reading the badge. */
+.qna-c--a {
+  margin: 0.5rem 0 0 var(--qna-indent);
+  padding: 0.7rem 0.85rem;
+  background: #F5F8FF;
+  border-left: 3px solid #2563EB;
+  border-radius: 0 10px 10px 0;
+}
+.qna-badge {
+  display: inline-block;
+  margin-right: 0.4rem;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #2563EB;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+
+.qna-thread { margin-left: var(--qna-indent); }
+.qna-thread-list { display: flex; flex-direction: column; }
+/* "—— View replies (n)", collapsed by default so one busy question cannot bury
+   the next. The rule is drawn by the button, not a border, so it sits on the
+   text's baseline the way Instagram's does. */
+.qna-more {
+  display: flex; align-items: center; gap: 0.7rem;
+  margin: 0.35rem 0;
+  border: none; background: none; padding: 0; cursor: pointer;
+  font: inherit; font-size: 0.75rem; font-weight: 700; color: #5A6B85;
+}
+.qna-more-line { width: 24px; height: 1px; background: #C0CAD8; flex: none; }
+.qna-more:hover .qna-more-txt { text-decoration: underline; color: #081421; }
+
+.qna-reply-form { display: flex; align-items: center; gap: 0.5rem; margin: 0.4rem 0 0.2rem; }
+.qna-reply-input {
+  flex: 1; min-width: 0;
+  padding: 0.45rem 0.7rem;
+  font: inherit; font-size: 0.82rem;
+  border: 1px solid #E8ECF2; border-radius: 999px;
+  background: #F7F9FC; color: #33415C;
+}
+.qna-reply-input:focus { outline: none; border-color: #2563EB; background: #fff; }
+
+.qna-answer-form {
+  margin: 0.6rem 0 0 var(--qna-indent);
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;
+}
+.qna-answer-form textarea { width: 100%; }
+
+.vd-qna-who { cursor: pointer; }
+.vd-qna-who:hover, .vd-qna-who:focus-visible { text-decoration: underline; }
+.vd-qna-who:focus-visible { outline: 2px solid #2563EB; outline-offset: 2px; border-radius: 4px; }
+.qna-av.vd-qna-who:hover { text-decoration: none; filter: brightness(0.94); }
+.vd-qna-time { font-size: 0.74rem; color: #94A3B8; }
+.qna-c-meta .qna-time { font-size: 0.74rem; color: #94A3B8; }
+
+.vd-qna-pending {
+  margin: 0.6rem 0 0 var(--qna-indent);
+  font-size: 0.78rem;
+  color: #94A3B8;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .vd-qna-item { --qna-indent: 0.75rem; }
+  .qna-c-meta { gap: 0.75rem; }
+}
+
+/* INVESTMENT & EXIT TERMS  (Overview tab) */
+/* The terms a partner is actually agreeing to. A pale-green card at the client's
+   request (10 Sep 2026) — it used to be the one dark navy panel on the page, and
+   the green is what now sets it apart from the plain white cards around it, so it
+   still reads as the section to stop and read. Every child is recoloured below —
+   check contrast there before adding anything new inside this block. */
+.vd-exit-terms {
+  margin: 1.5rem 0;
+  padding: 1.35rem 1.45rem;
+  background: #F1F9F3;
+  border: 1px solid #CFE8D8;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(16, 94, 54, 0.06);
+}
+.vd-exit-head {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.vd-exit-head-icon {
+  flex: 0 0 auto;
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  background: #16A34A;
+  color: #FFFFFF;
+}
+
+.vd-exit-terms .vd-exit-head h4 { margin: 0 0 0.25rem; font-size: 1rem; }
+.vd-exit-head p { margin: 0; font-size: 0.82rem; color: #5A6B85; }
+
+.vd-exit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 0.9rem 1.5rem;
+}
+.vd-exit-row { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+
+.vd-exit-row--wide { grid-column: 1 / -1; }
+
+.vd-exit-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #8896AC;
+}
+.vd-exit-value {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  font-weight: 600;
+  color: #081421;
+  white-space: pre-line;
+}
+
+.vd-exit-value--yes { color: #15803D; }
+.vd-exit-value--no  { color: #B42318; }
+
+.vd-exit-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.vd-exit-chip {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: #EFF4FF;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  color: #1D4FD8;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.vd-exit-empty { margin: 0; font-size: 0.85rem; line-height: 1.6; color: #7A8AA3; }
+
+.vd-lifecycle-banner {
+  margin-top: var(--navbar-height, 68px);
+  padding: 0.85rem 0; font-size: 0.87rem; line-height: 1.6;
+}
+.vd-lifecycle-banner:not(.hidden) + .vd-hero {
+  margin-top: 0 !important;
+  padding-top: 2.5rem;
+}
+.vd-lifecycle-banner .container {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem;
+}
+.vd-lifecycle-banner strong { font-weight: 800; }
+.vd-lifecycle-banner span { flex: 1 1 320px; min-width: 0; }
+.vd-lifecycle-banner--warn { background: #FFFBEB; border-bottom: 1px solid #FDE68A; color: #92400E; }
+.vd-lifecycle-banner--warn strong { color: #78350F; }
+.vd-lifecycle-banner--dead { background: #FEF2F2; border-bottom: 1px solid #FECACA; color: #991B1B; }
+.vd-lifecycle-banner--dead strong { color: #7F1D1D; }
+
+#vdSampleBanner:not(.hidden) {
+  margin-top: var(--navbar-height, 68px);
+  background: #FFFBEB;
+  border-bottom: 1px solid #F7E08A;
+}
+#vdSampleBanner:not(.hidden) + .vd-hero,
+.vd-lifecycle-banner:not(.hidden) + #vdSampleBanner + .vd-hero {
+  margin-top: 0 !important;
+  padding-top: 2.5rem;
+}
+.vd-sample-banner {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem 0.85rem;
+  max-width: 1200px; margin: 0 auto; padding: 0.85rem 1.5rem;
+  color: #7A5E00; font-size: 0.87rem; line-height: 1.6;
+}
+.vd-sample-banner > div:last-child { flex: 1 1 320px; min-width: 0; }
+.vd-sample-banner strong { font-weight: 800; color: #0B1B2B; }
+.vd-sample-banner__tag {
+  flex: 0 0 auto;
+  background: #157347; color: #fff;
+  font-size: 0.68rem; font-weight: 800; letter-spacing: .05em;
+  padding: 0.3rem 0.6rem; border-radius: 6px;
+}
+
+/* Equity & salary per role — scrolls inside its own box on narrow screens
+   rather than widening the terms grid. */
+.vd-equity-wrap { overflow-x: auto; margin-top: 0.35rem; }
+.vd-equity {
+  width: 100%; min-width: 420px;
+  border-collapse: collapse; font-size: 0.87rem;
+}
+.vd-equity thead th {
+  text-align: left; padding: 0 0.7rem 0.35rem 0;
+  font-size: 0.68rem; font-weight: 800; letter-spacing: .05em;
+  text-transform: uppercase; color: #8A98AC;
+  border-bottom: 1px solid #E8ECF2;
+}
+.vd-equity tbody th {
+  text-align: left; font-weight: 700; color: #0F1D2E;
+  padding: 0.45rem 0.7rem 0.45rem 0;
+}
+.vd-equity td { padding: 0.45rem 0.7rem 0.45rem 0; color: #475569; }
+.vd-equity tbody tr + tr th,
+.vd-equity tbody tr + tr td { border-top: 1px solid #F1F4F8; }
+.vd-equity em { color: #8A98AC; font-style: italic; }
+.vd-equity-note { margin: 0.45rem 0 0; font-size: 0.76rem; color: #8A98AC; }
+
+/* "30% investment + 20% operations", under the total it adds up to. */
+.vd-equity-split {
+  display: block; margin-top: 0.1rem;
+  font-size: 0.75rem; color: #8A98AC; white-space: nowrap;
+}
+
+/* ── Investment & Exit Terms: dark text on the pale-green panel ───────────
+   Scoped to .vd-exit-terms so nothing else on the page is affected, and placed
+   after the .vd-equity rules above so the table inherits this treatment. */
+.vd-exit-terms .vd-exit-head h4 { color: #0B3D25; }
+.vd-exit-terms .vd-exit-head p { color: #4C6B58; }
+
+.vd-exit-terms .vd-exit-label { color: #2F7D53; }
+.vd-exit-terms .vd-exit-value { color: #10281C; }
+
+/* .vd-exit-value--yes / --no are deliberately NOT overridden: the light-panel
+   #15803D and #B42318 both clear 4.5:1 on this background. They needed brighter
+   substitutes only while the panel was navy. */
+
+.vd-exit-terms .vd-exit-chip {
+  background: #E4F4EA;
+  border-color: rgba(21, 128, 61, 0.22);
+  color: #15803D;
+}
+
+.vd-exit-terms .vd-exit-empty { color: #5C7A69; }
+
+.vd-exit-terms .vd-equity thead th {
+  color: #4C6B58;
+  border-bottom-color: rgba(16, 94, 54, 0.18);
+}
+.vd-exit-terms .vd-equity tbody th { color: #0B3D25; }
+.vd-exit-terms .vd-equity td { color: #35513F; }
+.vd-exit-terms .vd-equity tbody tr + tr th,
+.vd-exit-terms .vd-equity tbody tr + tr td { border-top-color: rgba(16, 94, 54, 0.12); }
+.vd-exit-terms .vd-equity em { color: #6C8878; }
+.vd-exit-terms .vd-equity-note { color: #5C7A69; }
+.vd-exit-terms .vd-equity-split { color: #4C7A5F; }
+
+/* The active-limit rule, spelled out under the table. Called out rather than
+   left as fine print: it is the one thing in this block a reader cannot work
+   out from the percentages themselves. */
+.vd-equity-rule {
+  margin: 0.55rem 0 0;
+  padding: 0.6rem 0.75rem;
+  border-left: 3px solid #2563EB;
+  border-radius: 0 8px 8px 0;
+  background: #F4F8FF;
+  font-size: 0.79rem;
+  line-height: 1.6;
+  color: #43536B;
+}
+.vd-equity-rule strong { color: #0F1D2E; }
+.vd-exit-terms .vd-equity-rule {
+  background: rgba(22, 163, 74, 0.10);
+  border-left-color: #16A34A;
+  color: #35513F;
+}
+.vd-exit-terms .vd-equity-rule strong { color: #0B3D25; }
+
+/* The shared equity calculator (components.css) sits on this green panel here,
+   so it is lifted onto white rather than left to blend into the card. */
+.vd-exit-terms .eq-calc {
+  background: #FFFFFF;
+  border-color: #CFE8D8;
+  border-left-color: #16A34A;
+}
+.vd-exit-terms .eq-calc-title { color: #0B3D25; }
+.vd-exit-terms .eq-calc-total { color: #15803D; }
+.vd-exit-terms .eq-calc-lines li { color: #35513F; border-top-color: rgba(16, 94, 54, 0.12); }
+.vd-exit-terms .eq-calc-lines li strong { color: #0B3D25; }
+.vd-exit-terms .eq-calc-lines li small { color: #6C8878; }
+.vd-exit-terms .eq-calc-note { color: #5C7A69; }
+.vd-exit-terms .eq-calc-flag {
+  background: #FEF6E7;
+  border-color: #F0D9A8;
+  color: #7A5E00;
+}
+.vd-exit-terms .eq-tool-label { color: #0B3D25; }
+.vd-exit-terms .eq-tool-amt span { color: #5C7A69; }
+.vd-exit-terms .eq-tool-amt input,
+.vd-exit-terms .eq-tool select {
+  background: #FFFFFF;
+  border-color: #CFE8D8;
+  color: #10281C;
+}
+.vd-exit-terms .eq-tool select option { color: #0F1D2E; }
+
+/* ── Asset class badges on the listing header ───────────────────────────────
+   A listing may claim up to 3 classes. The canonical five double as the Browse
+   filter pills; a founder-named class does not, so it is drawn dashed — the
+   difference matters to a visitor deciding whether they can browse more like it. */
+.vd-class-badge { font-size: 0.72rem; }
+.vd-class-badge--custom {
+  border: 1px dashed currentColor;
+  background: transparent;
+}
+/* The header sits on a photo when a cover is set; keep the badges legible there. */
+.vd-hero--has-cover .vd-class-badge--custom { color: rgba(255,255,255,0.85); }
+
+/* ── VACATED ACTIVE SEAT, IN THE FOUNDER'S APPLICATIONS TAB ───────────────────
+   A seat is a decision with a seven-day clock on it, so it leads the tab and is
+   framed rather than sitting in the ordinary card rhythm. .wl-badge is defined in
+   waitlist.css, which this page does not load — hence its own copy here rather
+   than a cross-page dependency that would break silently if either moved. */
+.vd-seat {
+  border: 1.5px solid #FBD9A5; border-radius: 16px; padding: 1.25rem 1.4rem;
+  background: linear-gradient(180deg, #FFFCF6 0%, #FFF 65%); margin-bottom: 1.25rem;
+}
+.vd-seat--chosen { border-color: #BBF7D0; background: linear-gradient(180deg, #F7FFFA 0%, #FFF 65%); }
+.vd-seat-head h4 { margin: 0.5rem 0 0.2rem; font-size: 1rem; color: #081421; }
+.vd-seat-head p  { margin: 0; font-size: 0.82rem; color: #5A6B85; }
+
+.vd-seat .wl-badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em;
+  text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 999px;
+  background: #ECFDF5; color: #047857;
+}
+
+.vd-seat-count { margin: 0.9rem 0 0.7rem; font-size: 0.82rem; font-weight: 600; color: #B4690E; }
+.vd-seat-empty { margin: 0.9rem 0 0; font-size: 0.84rem; color: #5A6B85; line-height: 1.5; }
+
+.vd-seat-cand {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  flex-wrap: wrap; padding: 0.9rem 1rem; margin-bottom: 0.6rem;
+  background: #fff; border: 1px solid #E8ECF2; border-radius: 12px;
+}
+.vd-seat-cand-name  { font-weight: 700; font-size: 0.92rem; color: #081421; }
+.vd-seat-cand-name span { font-weight: 400; color: #64748b; font-size: 0.78rem; }
+.vd-seat-cand-meta  { font-size: 0.78rem; color: #64748b; margin-top: 0.4rem; }
+.vd-seat-cand-match { font-size: 0.78rem; color: #16a34a; margin-top: 0.2rem; font-weight: 600; }
+.vd-seat-cand-msg {
+  font-size: 0.8rem; color: #475569; margin-top: 0.4rem;
+  background: #f8fafc; padding: 0.5rem 0.65rem; border-radius: 8px;
+}
+
+.vd-seat-foot { margin-top: 0.4rem; }
+.vd-seat-chosen-note {
+  display: flex; align-items: flex-start; gap: 0.5rem; margin-top: 0.9rem;
+  padding: 0.7rem 0.9rem; background: #F1F7F3; border: 1px solid #CFE7D8;
+  border-radius: 10px; font-size: 0.85rem; line-height: 1.45; color: #1F5137;
+}
+.vd-seat-chosen-note svg { flex: none; margin-top: 0.1rem; color: #2E8B57; }

@@ -1,0 +1,45 @@
+# VENTURES HARBOR — clean URLs
+#
+# /pages/browse.php  ->  /pages/browse
+# /index.php         ->  /
+#
+# Deliberately drops ONLY the extension and leaves the folders alone. The URL
+# keeps the same depth (/pages/browse and /pages/browse.php both sit in
+# /pages/), which is what lets every page keep its relative asset paths
+# (../assets/css/...) and lets VH.getBasePath() in assets/js/shared.js keep
+# working — it finds the app root by looking for /pages/, /admin/, /users/ or
+# /api/ in the path, and those are all still there.
+
+Options -MultiViews
+RewriteEngine On
+
+# Work out the directory the app is installed in, so the same file works at a
+# domain root (venturesharbor.com/) and in a subfolder (localhost/ventures-harbor/).
+# Without this, redirects below would send a local request to the server root.
+RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+RewriteRule ^(.*)$ - [E=BASE:%1]
+
+# 1. index.php -> the directory itself, so the homepage has one canonical URL
+#    instead of answering on both / and /index.php.
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{THE_REQUEST} \s[^?]*/index\.php[\s?] [NC]
+RewriteRule ^(.*)index\.php$ %{ENV:BASE}$1 [R=301,L,NE]
+
+# 2. Send a visitor who asked for the .php URL to the clean one.
+#
+#    GET only, and never under /api/. A 301 tells the browser to repeat the
+#    request at the new URL, and browsers are permitted to turn a redirected
+#    POST into a GET — which would silently drop the body of every login,
+#    payment and form submission. The API is called with POST throughout, so it
+#    is excluded outright rather than relying on the method check alone.
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{REQUEST_URI} !(^|/)api/ [NC]
+RewriteCond %{THE_REQUEST} \s[^?]*\.php[\s?] [NC]
+RewriteRule ^(.+)\.php$ %{ENV:BASE}$1 [R=301,L,NE]
+
+# 3. Serve foo.php when /foo is requested. Checked last, and only when the
+#    request is not already a real directory, so /pages/ and /uploads/ still
+#    behave normally.
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]

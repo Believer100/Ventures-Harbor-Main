@@ -1,0 +1,94 @@
+/* PAYMENT RESULT PAGE (payment-return.css) */
+
+.pr-page {
+  min-height: 100vh;
+  padding: calc(var(--navbar-height, 68px) + 3rem) 1.25rem 4rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: linear-gradient(135deg, #F7F8FA 0%, #eef2f7 100%);
+}
+
+.pr-card {
+  width: 100%;
+  max-width: 540px;
+  background: #fff;
+  border: 1px solid #E8ECF2;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(8, 20, 33, .07);
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+}
+
+.pr-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-size: 2.2rem;
+  background: #F1F5F9;
+}
+
+.pr-card--success .pr-icon { background: #DCFCE7; }
+.pr-card--success .pr-title { color: #15803D; }
+.pr-card--failed  .pr-icon { background: #FEE2E2; }
+.pr-card--failed  .pr-title { color: #B91C1C; }
+.pr-card--pending .pr-icon { background: #FEF3C7; }
+.pr-card--pending .pr-title { color: #B45309; }
+
+.pr-title {
+  margin: 0 0 .5rem;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #081421;
+  letter-spacing: -.01em;
+}
+
+.pr-message {
+  margin: 0 0 1.5rem;
+  font-size: .95rem;
+  line-height: 1.65;
+  color: #5A6B85;
+}
+
+.pr-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .5rem 1.25rem;
+  margin: 0 0 1.25rem;
+  padding: 1.1rem 1.25rem;
+  background: #F7F8FA;
+  border: 1px solid #E8ECF2;
+  border-radius: 10px;
+  text-align: left;
+  font-size: .88rem;
+}
+.pr-details dt { color: #7A8AA3; }
+.pr-details dd { margin: 0; color: #081421; font-weight: 700; word-break: break-all; }
+
+.pr-note {
+  margin: 0 0 1.25rem;
+  padding: .75rem .9rem;
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: #92400E;
+  text-align: left;
+}
+
+.pr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  justify-content: center;
+}
+.pr-actions .btn { flex: 0 1 auto; }
+
+@media (max-width: 480px) {
+  .pr-card { padding: 2rem 1.25rem 1.5rem; }
+  .pr-details { grid-template-columns: 1fr; gap: .15rem; }
+  .pr-details dt { margin-top: .5rem; }
+  .pr-actions .btn { flex: 1 1 100%; }
+}

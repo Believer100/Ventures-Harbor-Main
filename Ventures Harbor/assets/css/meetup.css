@@ -1,0 +1,76 @@
+/* ── MEETUP CSS ───────────────────────────────────────── */
+.meetup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.meetup-header h1 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1.6rem; font-weight: 800; color: #081421; margin: 0 0 0.25rem; }
+.meetup-header p { margin: 0; }
+
+.meetup-layout { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; }
+@media (max-width: 900px) { .meetup-layout { grid-template-columns: 1fr; } }
+
+.meetup-sidebar { display: flex; flex-direction: column; }
+
+/* Calendar */
+.mini-calendar { background: #F7F8FA; border-radius: 12px; padding: 0.75rem; font-size: 0.8rem; border: 1px solid #E8ECF2; }
+.calendar-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: #2563EB; margin-bottom: 0.5rem; }
+.calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; font-weight: 600; color: #5A6B85; margin-bottom: 0.25rem; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.calendar-cell { height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.calendar-cell:hover { background: #E8ECF2; }
+.calendar-cell.has-event { background: #EFF4FF; color: #2563EB; font-weight: 700; position: relative; }
+.calendar-cell.has-event::after { content: ''; width: 4px; height: 4px; background: #2563EB; border-radius: 50%; position: absolute; bottom: 3px; }
+.calendar-cell.today { border: 1.5px solid #2563EB; font-weight: 700; color: #2563EB; }
+
+.meetup-stats-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 0.85rem; border-bottom: 1px solid #F1F4F8; }
+.meetup-stats-row:last-child { border-bottom: none; }
+.meetup-stats-row strong { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1rem; font-weight: 850; }
+
+/* Meetup List Item */
+.meetup-card-item { background: #fff; border: 1.5px solid #E8ECF2; border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.2s; }
+.meetup-card-item:hover { border-color: #2563EB; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+.meetup-card-top { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
+.m-date-box { width: 52px; height: 52px; border-radius: 12px; background: linear-gradient(135deg, #2563EB, #2563EB); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; }
+.m-date-box span:first-child { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: rgba(255,255,255,0.75); }
+.m-date-box span:last-child { font-size: 1.3rem; font-weight: 900; line-height: 1; }
+.m-info { flex: 1; min-width: 0; }
+.m-info h3 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1.05rem; font-weight: 800; color: #081421; margin: 0 0 0.25rem; }
+.m-info p { font-size: 0.8rem; color: #5A6B85; margin: 0; }
+.m-badge-row { display: flex; gap: 0.5rem; margin-top: 0.4rem; }
+
+.meetup-card-details { border-top: 1px solid #F1F4F8; padding-top: 1rem; display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+@media (max-width: 600px) { .meetup-card-details { grid-template-columns: 1fr; } }
+.m-details-left p { font-size: 0.85rem; color: #33415C; margin: 0 0 0.75rem; line-height: 1.6; }
+.m-details-left strong { color: #081421; }
+.m-loc-info { background: #F7F8FA; border: 1px solid #E8ECF2; border-radius: 10px; padding: 0.75rem 1rem; font-size: 0.82rem; color: #44557A; display: flex; align-items: center; gap: 0.5rem; }
+
+.m-details-right h5 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #7A8AA3; margin: 0 0 0.5rem; }
+.m-attendees { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; }
+.m-att-badge { font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; background: #F1F4F8; border-radius: 6px; color: #44557A; border: 1px solid #E8ECF2; }
+
+.meetup-card-actions { border-top: 1px solid #F1F4F8; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+.m-rsvp-buttons { display: flex; gap: 0.5rem; }
+
+/* Form working mode cards in modal */
+.cv-mode-cards { display: flex; gap: 0.5rem; }
+.cv-mode-card { flex: 1; border: 1.5px solid #E8ECF2; border-radius: 8px; padding: 0.6rem; text-align: center; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+.cv-mode-card input { display: none; }
+.cv-mode-card:has(input:checked) { border-color: #2563EB; background: #EFF4FF; color: #2563EB; }
+
+/* Offline meetups are capped by partner count (vh_meetup_mode). When the cap is
+   passed the Physical card is locked rather than removed, so the person can see
+   the option exists and read why it is unavailable. */
+.cv-mode-card.is-locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  position: relative;
+}
+.cv-mode-card.is-locked input { pointer-events: none; }
+
+.mt-online-note {
+  margin: 0.55rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #B4690E;
+  background: #FFF7ED;
+  border: 1px solid #FDE4C4;
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+}

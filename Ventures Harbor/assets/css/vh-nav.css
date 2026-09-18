@@ -1,0 +1,220 @@
+/* VENTURES HARBOR — THE SITE NAV
+ *
+ * The dark-over-hero / light-on-scroll navbar, its account dropdown, and the
+ * mobile burger + drawer. Extracted out of vh.css so a page can wear the nav
+ * without wearing the whole homepage design system: vh.css also restyles
+ * :root, html, body and every `a`, which fights main.css/browse.css on any
+ * page built on those. Browse needed the nav and none of that.
+ *
+ * Loaded by index.php, pages/about.php, pages/contact.php and pages/browse.php.
+ * The --vh-* custom properties it reads are defined in BOTH vh.css and
+ * theme.css with identical values, so it resolves either way.
+ *
+ * The colour transitions on scroll are applied inline by onScroll() in
+ * assets/js/home.js — that file must be loaded alongside this one, or the nav
+ * renders but never switches out of its dark, over-the-hero state.
+ */
+
+/* ---------- one height, on every page and in both auth states ----------
+ *
+ * The bar used to be as tall as whatever was inside it, and what is inside it
+ * changes: signed out the tallest item is the 39px "List an Asset" button,
+ * signed in it is the 44px avatar pill. So the header grew ~5px the moment you
+ * logged in, and the logo and links shifted down with it — the "few pixels up
+ * and down" between pages. Pinning a min-height makes the row 72px everywhere,
+ * with the inline align-items:center keeping its contents optically centred.
+ *
+ * 72px is the signed-in height (44px avatar + 2 x 14px row padding), so this
+ * raises the floor rather than squashing anything.
+ *
+ * It also redefines --navbar-height, which main.css sets to 68px and which the
+ * light pages (venture detail, join, create, payment return) use to push their
+ * content clear of the fixed bar. Those pages get the right offset for free.
+ * Load this sheet AFTER main.css/theme.css so this definition wins. Pages that
+ * do not use this header (profile, wallet, admin) never load this file and keep
+ * main.css's 68px alongside their own .navbar. */
+:root { --navbar-height: 72px; }
+#vh-nav .vh-navrow {
+  min-height: var(--navbar-height);
+  box-sizing: border-box;
+}
+
+/* ---------- nav buttons ---------- */
+/* The nav CTA is blue (client's call); .vh-cta-gold stays gold and is still
+   used by the genuinely-gold buttons on About and Contact, so it keeps its
+   own hover and must not be recoloured here. */
+.vh-cta-blue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(37, 99, 235, .45);
+  color: #fff;
+}
+.vh-cta-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(245, 197, 24, .4);
+  color: var(--vh-ink);
+}
+.vh-btn-ghost:hover {
+  border-color: rgba(255, 255, 255, .45);
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  transform: translateY(-3px);
+}
+#vh-nav .vh-btn-ghost {
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .16);
+  color: #fff;
+  transition: color .25s, border-color .25s, background .25s, transform .25s;
+}
+#vh-nav .vh-btn-ghost:hover {
+  border-color: rgba(255, 255, 255, .45);
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+}
+#vh-nav.vh-nav--solid .vh-btn-ghost {
+  background: rgba(8, 20, 33, .04);
+  border-color: rgba(8, 20, 33, .16);
+  color: #33415C;
+}
+#vh-nav.vh-nav--solid .vh-btn-ghost:hover {
+  border-color: rgba(8, 20, 33, .34);
+  background: rgba(8, 20, 33, .07);
+  color: #081421;
+}
+
+/* ---------- nav search input ---------- */
+#vh-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: inherit;
+}
+#vh-search input::placeholder { color: currentColor; opacity: .95; }
+
+/* ---------- account dropdown ---------- */
+.vh-menu-wrap { position: relative; }
+.vh-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  min-width: 216px;
+  padding: 8px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--vh-line);
+  box-shadow: 0 20px 48px rgba(8, 20, 33, .16);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .2s, transform .2s, visibility .2s;
+  z-index: 90;
+}
+.vh-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+.vh-menu a, .vh-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vh-slate-mid);
+  cursor: pointer;
+  text-align: left;
+  transition: background .18s, color .18s;
+}
+.vh-menu a:hover, .vh-menu button:hover { background: var(--vh-surface); color: var(--vh-ink); }
+.vh-menu .vh-menu-danger { color: #C0392B; }
+.vh-menu .vh-menu-danger:hover { background: #FDECEA; color: #A5281B; }
+.vh-menu-sep { height: 1px; margin: 6px 8px; background: var(--vh-line); }
+
+/* ---------- mobile nav ---------- */
+.vh-burger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  place-items: center;
+  transition: border-color .35s;
+}
+.vh-burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 3px auto;
+  border-radius: 2px;
+  background: currentColor;
+}
+.vh-drawer {
+  display: none;
+  position: fixed;
+  inset: 0 0 auto;
+  top: 0;
+  z-index: 95;
+  padding: 96px 24px 32px;
+  background: rgba(8, 20, 33, .97);
+  backdrop-filter: blur(14px);
+  flex-direction: column;
+  gap: 6px;
+  min-height: 100vh;
+}
+.vh-drawer.open { display: flex; }
+.vh-drawer a, .vh-drawer button {
+  padding: 15px 4px;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  background: transparent;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+.vh-drawer-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, .2) !important;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 22px !important;
+  display: grid;
+  place-items: center;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+@media (max-width: 1440px) {
+  #vh-search { flex-basis: 240px !important; }
+}
+@media (max-width: 1280px) {
+  #vh-search { flex-basis: 190px !important; padding-left: 13px !important; padding-right: 13px !important; }
+  .vh-navcta { padding-left: 15px !important; padding-right: 15px !important; gap: 5px !important; }
+}
+@media (max-width: 1160px) {
+  #vh-search { display: none !important; }
+}
+
+@media (max-width: 1080px) {
+  #vh-search { display: none !important; }
+  .vh-navlinks { display: none !important; }
+  .vh-navcta { display: none !important; }
+  .vh-burger { display: grid; }
+}
+@media (max-width: 620px) {
+  #vh-avatar { display: none !important; }
+}

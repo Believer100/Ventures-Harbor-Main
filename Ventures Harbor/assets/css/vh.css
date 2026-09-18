@@ -1,0 +1,316 @@
+/* VENTURES HARBOR — 2026 design system */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --vh-ink: #081421;
+  --vh-black: #000;
+  --vh-panel: #0D0D0D;
+  --vh-blue: #2563EB;
+  --vh-blue-dark: #1D4ED8;
+  --vh-sky: #3B82F6;
+  --vh-gold: #F5C518;
+  --vh-gold-ink: #8A6D00;
+  --vh-gold-soft: rgba(245, 197, 24, .14);
+  --vh-blue-soft: #EFF4FF;
+  --vh-slate: #5A6B85;
+  --vh-slate-light: #7A8AA3;
+  --vh-slate-mid: #33415C;
+  --vh-line: #E8ECF2;
+  --vh-line-soft: #EDF0F4;
+  --vh-line-mid: #DCE3EC;
+  --vh-surface: #F7F8FA;
+  --vh-white: #fff;
+  --vh-font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--vh-ink);
+  color: var(--vh-ink);
+  font-family: var(--vh-font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--vh-blue); text-decoration: none; }
+a:hover { color: var(--vh-blue-dark); }
+img { max-width: 100%; }
+button { font-family: inherit; }
+::selection { background: var(--vh-gold); color: var(--vh-ink); }
+
+/* ---------- keyframes ---------- */
+@keyframes vh-spin { to { transform: rotate(360deg); } }
+@keyframes vh-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+@keyframes vh-rise {
+  0%   { bottom: 0;   opacity: 1; transform: scale(1); }
+  100% { bottom: 65%; opacity: 0; transform: scale(.25); }
+}
+
+.vh-btn-blue:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, .5);
+  color: #fff;
+}
+.vh-btn-blue-lg:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(37, 99, 235, .55);
+  color: #fff;
+}
+.vh-btn-blue-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, .35);
+  color: #fff;
+}
+
+.splash-cursor-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.vh-btn-ghost-lg:hover {
+  border-color: rgba(255, 255, 255, .55);
+  background: rgba(255, 255, 255, .06);
+  color: #fff;
+  transform: translateY(-3px);
+}
+.vh-btn-dark:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(8, 20, 33, .3);
+  color: #fff;
+}
+.vh-btn-outline:hover {
+  border-color: var(--vh-blue);
+  background: #F5F8FF;
+  color: var(--vh-ink);
+}
+.vh-btn-outline-blue:hover { background: var(--vh-blue); color: #fff; }
+.vh-filter:hover { border-color: var(--vh-blue); }
+.vh-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 50px rgba(8, 20, 33, .12);
+  border-color: rgba(245, 197, 24, .55);
+}
+.vh-step:hover {
+  /* translate3d, not translateY: [data-border-glow] sets a 0.01px z-nudge to force
+     the stacking context its glow layers live in, and a plain translateY on hover
+     would drop it for exactly as long as the glow is on screen. */
+  transform: translate3d(0, -8px, 0.01px);
+  /* Neutral, deliberately. The gold now comes from the travelling border glow, the
+     same way .vh-feature gets it — a static gold border underneath would fight it. */
+  border-color: rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, .05);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, .3);
+}
+.vh-feature:hover {
+  transform: translateY(-6px);
+  background: #fff;
+  box-shadow: 0 20px 44px rgba(8, 20, 33, .1);
+}
+.vh-quote:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(8, 20, 33, .1); }
+.vh-flink:hover { color: var(--vh-gold); }
+.vh-social:hover { border-color: var(--vh-gold); color: var(--vh-gold); }
+a:hover > [data-arrow] { transform: translateX(4px); }
+
+
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  max-width: 360px;
+}
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+  padding: .9rem 1.1rem;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--vh-line);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .14);
+  transform: translateX(120%);
+  transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+  cursor: pointer;
+}
+.toast.show { transform: translateX(0); }
+.toast-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.toast--success .toast-icon { background: #E7F7EF; color: #157347; }
+.toast--error   .toast-icon { background: #FDECEA; color: #B3261E; }
+.toast--warning .toast-icon { background: var(--vh-gold-soft); color: var(--vh-gold-ink); }
+.toast--info    .toast-icon { background: var(--vh-blue-soft); color: var(--vh-blue); }
+.toast-body { flex: 1; }
+.toast-title { font-size: .85rem; font-weight: 700; color: var(--vh-ink); line-height: 1.3; }
+.toast-msg { font-size: .78rem; color: var(--vh-slate); margin-top: .15rem; line-height: 1.4; }
+.toast-close { color: var(--vh-slate-light); flex-shrink: 0; }
+.toast-progress {
+  height: 3px;
+  margin: -.9rem -1.1rem 0;
+  border-radius: 0 0 14px 14px;
+  background: var(--vh-ink);
+  transform-origin: left;
+  animation: vh-toast-timer 4s linear forwards;
+}
+@keyframes vh-toast-timer { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+
+/* ---------- How It Works: the four step cards ------------------------------
+   Base styles live HERE, not inline on the markup, and that is the fix rather
+   than a tidy-up: the card carried its own `background` and `border` inline, so
+   the :hover rules below — which had been in this file all along — could never
+   win against them. The client saw a card that did nothing on hover while the
+   venture cards beside it lit up gold, and the reason was specificity, not a
+   missing rule. Anything a hover state needs to change must stay out of the
+   style attribute. */
+.vh-step {
+  position: relative;
+  padding: 30px 26px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .03);
+  border: 1px solid rgba(255, 255, 255, .08);
+  backdrop-filter: blur(6px);
+  transition: transform .3s, border-color .3s, background .3s, box-shadow .3s;
+}
+/* The travelling gold outline is the SHARED one — `data-border-glow` on the markup
+   plus border-glow.js, exactly as the Why-section feature cards and the testimonial
+   quotes use it. It is not reimplemented here: the glow follows the cursor around the
+   border, which needs the pointer maths in that file, and a second copy would drift.
+   All this card owes it is `--card-bg`, the colour its ::before paints back over the
+   interior so only the border carries the gradient. The step card is translucent white
+   over the dark band, so that resolves to roughly #0F1D2C — the same job
+   `.vh-principle[data-border-glow]` does for its dark card in border-glow.css. */
+.vh-step[data-border-glow] { --card-bg: #0F1D2C; }
+
+/* The icon tile keeps only its colours inline — those differ per step (blue,
+   gold, blue, gold) — so everything a hover can touch is declared here. */
+.vh-step-icon {
+  margin-top: -26px;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .35);
+  transition: transform .35s cubic-bezier(.34, 1.36, .64, 1), box-shadow .35s;
+}
+/* Zooms on ITS OWN hover, not the card's — pointing at the card lights the border,
+   pointing at the icon grows the icon, and the two read as separate things to touch. */
+.vh-step-icon:hover {
+  transform: scale(1.14);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .45);
+}
+
+/* ---------- Hero headline: the third line must not wrap --------------------
+   "Valuable Real-World Opportunities." measures 16.65em in Plus Jakarta Sans at
+   800 weight (measured, not guessed), so at the old 72px it wanted 1199px of
+   room and had 884px inside a 980px column - hence the two-line break the
+   client reported. The column is now 1240px and the size is derived from the
+   width rather than fixed, so the line fits BY CONSTRUCTION at every desktop
+   width instead of fitting at one and breaking at the next:
+
+     available = min(1240px, 100vw) - 2 x padding      font = available / 16.65
+
+   The cap is 66px (needs 1099px of the 1144px available at full width), and
+   calc(5.8vw - 6px) tracks the column while the viewport is narrower than it.
+   Type lives here, not inline on the <h1>: an inline font-size would win over
+   the media query and the line would wrap again. */
+.vh-hero-title {
+  font-size: clamp(34px, 5.2vw, 72px);
+  line-height: 1.08;
+  letter-spacing: -.03em;
+  font-weight: 800;
+}
+@media (min-width: 820px) {
+  .vh-hero-title { font-size: min(66px, calc(5.8vw - 6px)); }
+  /* Below 820px the line is allowed to wrap: holding it on one line there would
+     mean ~21px type on a phone, which is smaller than the body copy under it. */
+  .vh-hero-title [data-hero-line] { white-space: nowrap; }
+}
+
+/* ---------- How It Works: the one dark band between two white sections -------
+   Upgraded from a flat #081421 carrying a single blue glow (client's ask,
+   10 Sep 2026). Three cheap layers and nothing animated: a vertical base ramp
+   so the band is not one flat colour, a ::before holding the coloured glows,
+   and a ::after holding a dot grid masked to fade out before it reaches the
+   step cards. Gradients only, deliberately — a blurred element at this size
+   repaints on every scroll frame and this section is mid-page, so it would be
+   scrolled through constantly on the laptops the client demos on.
+   The section keeps position:relative/overflow:hidden inline; its background
+   moved here because an inline background would win over these rules. */
+.vh-how {
+  background: linear-gradient(180deg, #0B1D30 0%, #081421 46%, #060F1A 100%);
+}
+.vh-how::before,
+.vh-how::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+/* Blue overhead, gold rising from the lower left, and a soft blue on the right
+   so the band is lit from more than one direction. Both brand colours, at the
+   opacity the hero already uses them at. */
+.vh-how::before {
+  background:
+    radial-gradient(1100px 560px at 50% -14%, rgba(37, 99, 235, .26), transparent 62%),
+    radial-gradient(760px 520px at 2% 106%, rgba(245, 197, 24, .13), transparent 66%),
+    radial-gradient(620px 420px at 100% 58%, rgba(37, 99, 235, .10), transparent 70%);
+}
+/* Masked top and bottom so the grid never collides with the white section
+   above or the one below — it reads as texture, not as a visible edge. */
+.vh-how::after {
+  background-image: radial-gradient(rgba(255, 255, 255, .16) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: .38;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 48%, transparent 80%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 48%, transparent 80%);
+}
+/* Both layers are behind the content: the section's own children are lifted
+   above them rather than the layers being pushed to a negative z-index, which
+   would put them behind the section background itself. */
+.vh-how > * { position: relative; z-index: 1; }
+
+/* ---------- motion safety ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: .001s !important; transition-duration: .001s !important; }
+}
+
+/* The hero photograph is full-bleed (inset:0 + object-fit:cover) since the client
+   supplied the lighthouse scene on 10 Sep 2026. It replaced a square illustration
+   anchored to the right edge, which is what the old overrides here were undoing.
+   On a portrait phone `cover` crops the sides hard, so the frame is pulled left:
+   at 50% the lighthouse — the motif the logo echoes — falls outside the crop. */
+@media (max-width: 900px) {
+  #vh-hero-img {
+    object-position: 32% center !important;
+    opacity: .7 !important;
+  }
+  /* A narrow screen puts the copy over far more of the picture, so the scrim behind
+     it has to carry more. Same colour, tighter and heavier. */
+  #vh-hero-scrim-x {
+    background: radial-gradient(140% 70% at 50% 40%,
+      rgba(3, 9, 17, .92) 0%,
+      rgba(3, 9, 17, .8) 45%,
+      rgba(3, 9, 17, .55) 75%,
+      rgba(3, 9, 17, .3) 100%) !important;
+  }
+}

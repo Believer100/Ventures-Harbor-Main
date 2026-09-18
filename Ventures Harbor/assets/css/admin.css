@@ -1,0 +1,86 @@
+/* ── ADMIN PANEL CSS ──────────────────────────────────── */
+.admin-header { margin-bottom: 1.5rem; }
+.admin-header h1 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1.6rem; font-weight: 800; color: #081421; margin: 0 0 0.25rem; }
+
+.admin-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+@media (max-width: 1000px) { .admin-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .admin-stats-grid { grid-template-columns: 1fr; } }
+
+/* Table styles */
+.admin-table-wrap { overflow-x: auto; margin: 0 -1.5rem; padding: 0 1.5rem; }
+.admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem; }
+.admin-table th { background: #F7F8FA; color: #5A6B85; font-weight: 600; padding: 0.75rem 1rem; border-bottom: 1px solid #E8ECF2; }
+.admin-table td { padding: 1rem; border-bottom: 1px solid #F1F4F8; color: #33415C; vertical-align: middle; }
+.admin-table tr:hover td { background: #F7F8FA; }
+.table-user-cell { display: flex; align-items: center; gap: 0.6rem; }
+.table-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #2563EB; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+
+/* Document Preview Modal inside admin */
+.doc-preview-meta { background: #F7F8FA; border: 1px solid #E8ECF2; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; }
+.doc-preview-meta p { margin: 0.25rem 0; color: #44557A; }
+.doc-preview-meta strong { color: #081421; }
+.doc-preview-images { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-height: 420px; overflow-y: auto; }
+@media (max-width: 500px) { .doc-preview-images { grid-template-columns: 1fr; } }
+.doc-pic { border-radius: 10px; background: #F7F8FA; border: 1.5px solid #E8ECF2; padding: 0.75rem; }
+
+/* Status modifications */
+.badge--suspend { background: #fee2e2; color: #ef4444; }
+.badge--suspend:hover { background: #fca5a5; }
+
+.refund-filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+.refund-filter {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.45rem 0.9rem; border-radius: 999px; cursor: pointer;
+  background: #F7F8FA; border: 1.5px solid #E8ECF2; color: #5A6B85;
+  font-size: 0.82rem; font-weight: 600; font-family: inherit;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.refund-filter:hover { background: #EEF2F8; }
+.refund-filter.is-active { background: #EAF2FE; border-color: #3983F6; color: #1D4ED8; }
+.refund-filter-count {
+  min-width: 1.35rem; padding: 0 0.35rem; border-radius: 999px;
+  background: #FFFFFF; border: 1px solid #E8ECF2;
+  font-size: 0.72rem; font-weight: 700; text-align: center;
+}
+.refund-filter.is-active .refund-filter-count { border-color: #BFD8FD; color: #1D4ED8; }
+.refund-filter-hint { margin: 0 0 1rem; font-size: 0.78rem; line-height: 1.55; color: #7C8BA3; }
+
+.admin-tabs-container .vd-tabs-bar {
+  display: flex; gap: 0; margin-bottom: 1.5rem;
+  border-bottom: 2px solid #E8ECF2;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.admin-tabs-container .vd-tabs-bar::-webkit-scrollbar { display: none; }
+.admin-tabs-container .vd-tabs-bar .tab-btn {
+  flex-shrink: 0; white-space: nowrap;
+  margin-bottom: -2px; border-bottom: 2px solid transparent;
+}
+.admin-tabs-container .vd-tabs-bar .tab-btn.active { border-bottom-color: #2563EB; }
+
+.refund-type-badge {
+  display: inline-block; white-space: nowrap;
+  padding: 0.22rem 0.6rem; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.01em;
+}
+.refund-type--deletion { background: #FEF3C7; color: #92400E; }
+.refund-type--exit { background: #E0E7FF; color: #3730A3; }
+
+.refund-type--cancelled { background: #FEE2E2; color: #991B1B; }
+
+.refund-modal-type {
+  display: block; margin-bottom: 1rem; padding: 0.5rem 0.9rem;
+  border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-align: center;
+}
+
+.refund-bank-block { background: #F7F8FA; border: 1px solid #E8ECF2; border-radius: 8px; padding: 0.9rem 1rem; margin-bottom: 1rem; }
+.refund-bank-title { margin: 0 0 0.6rem; font-size: 0.8rem; font-weight: 700; color: #081421; text-transform: uppercase; letter-spacing: 0.04em; }
+.refund-bank-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; margin: 0; font-size: 0.85rem; }
+.refund-bank-grid dt { color: #7C8BA3; }
+.refund-bank-grid dd { margin: 0; color: #081421; font-weight: 600; word-break: break-all; }
+.refund-bank-note { margin: 0.7rem 0 0; padding-top: 0.7rem; border-top: 1px solid #E8ECF2; font-size: 0.8rem; color: #5A6B85; }
+
+.refund-waived-block {
+  background: #F1F5F9; border: 1px dashed #CBD5E1; border-radius: 8px;
+  padding: 0.9rem 1rem; margin-bottom: 1rem;
+  font-size: 0.84rem; line-height: 1.6; color: #475569;
+}

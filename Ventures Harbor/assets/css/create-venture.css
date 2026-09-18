@@ -1,0 +1,511 @@
+/* ── CREATE VENTURE CSS ─────────────────────────────── */
+
+.cv-logo-row { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+.cv-logo-preview {
+  width:64px; height:64px; flex-shrink:0;
+  border-radius:16px; overflow:hidden;
+  background:#F1F4F8; color:#081421;
+  border:1px solid #E8ECF2;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem; font-weight:700; line-height:1;
+}
+.cv-logo-preview img { width:100%; height:100%; object-fit:cover; display:block; }
+.cv-logo-actions { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; }
+.cv-logo-hint { flex-basis:100%; font-size:0.78rem; color:#5A6B85; }
+
+.cv-page {
+  background: #F1F4F8;
+  min-height: 100vh;
+  /* Flush under the navbar: the stepper bar below supplies its own breathing
+     room, so an extra gap here only pushed the form further down the page. */
+  padding-top: var(--navbar-height, 68px);
+  padding-bottom: 3rem;
+}
+/* Deliberately NOT sticky. It used to pin under the navbar, which cost a
+   permanent ~113px band on every scroll position and broke the Next-button
+   scroll (see VH.scroll.documentTop). It scrolls away with the page now. */
+.cv-step-progress { display:flex; align-items:center; justify-content:center; padding:1.1rem 1.5rem 0.9rem; background:#fff; border-bottom:1px solid #E8ECF2; }
+.cv-step { display:flex; flex-direction:column; align-items:center; gap:0.3rem; }
+.cv-step-circle { width:30px; height:30px; border-radius:50%; border:2px solid #E8ECF2; background:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.82rem; color:#7A8AA3; transition:all 0.3s; }
+.cv-step.active .cv-step-circle { border-color:#2563EB; background:#2563EB; color:#fff; }
+.cv-step.done .cv-step-circle { border-color:#16a34a; background:#16a34a; color:#fff; }
+.cv-step-label { font-size:0.72rem; font-weight:600; color:#7A8AA3; text-align:center; }
+.cv-step.active .cv-step-label { color:#2563EB; }
+.cv-step.done .cv-step-label { color:#16a34a; }
+.cv-step-line { flex:1; height:2px; background:#E8ECF2; max-width:80px; margin:0 0.5rem; transition:background 0.3s; }
+.cv-step-line.done { background:#16a34a; }
+
+.cv-layout { display:grid; grid-template-columns:1fr 380px; gap:2rem; max-width:1100px; margin:0 auto; padding:1.5rem 1.5rem 0; }
+@media(max-width:900px){ .cv-layout { grid-template-columns:1fr; } }
+
+.cv-form-area { }
+.cv-panel { background:#fff; border-radius:20px; border:1.5px solid #E8ECF2; padding:2rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.cv-panel.hidden { display:none; }
+.cv-panel h2 { font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:1.4rem; font-weight:800; color:#081421; margin:0 0 0.25rem; }
+.cv-subtitle { color:#5A6B85; font-size:0.88rem; margin:0 0 1.5rem; }
+.cv-nav { display:flex; justify-content:space-between; margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid #F1F4F8; }
+.char-counter { float:right; font-size:0.75rem; color:#7A8AA3; font-weight:400; }
+
+.cv-mode-cards { display:flex; gap:0.75rem; }
+.cv-mode-card { flex:1; display:flex; flex-direction:column; align-items:center; gap:0.4rem; padding:0.875rem; border:2px solid #E8ECF2; border-radius:12px; cursor:pointer; transition:all 0.2s; font-size:0.85rem; font-weight:600; color:#44557A; }
+.cv-mode-card input { display:none; }
+.cv-mode-card:has(input:checked) { border-color:#2563EB; background:#EFF4FF; color:#2563EB; }
+
+.cv-calc-box { background:linear-gradient(135deg,#EFF4FF,#e0edff); border:1.5px solid #D6E2FB; border-radius:12px; padding:1.25rem; margin-top:0.75rem; }
+.cv-calc-row { display:flex; justify-content:space-between; padding:0.4rem 0; font-size:0.88rem; color:#33415C; }
+.cv-calc-highlight { border-top:1px solid #D6E2FB; margin-top:0.25rem; padding-top:0.65rem; font-weight:700; color:#2563EB; }
+
+.cv-partner-options { display:flex; flex-direction:column; gap:0.75rem; margin-bottom:0.5rem; }
+.cv-partner-card { border:2px solid #E8ECF2; border-radius:14px; padding:1.25rem; cursor:pointer; transition:all 0.2s; display:block; }
+.cv-partner-card input { display:none; }
+.cv-partner-card:has(input:checked) { border-color:#2563EB; background:#EFF4FF; }
+.cv-pc-inner { display:flex; align-items:center; gap:1rem; }
+.cv-pc-inner > div { flex:1; min-width:0; }
+.cv-pc-inner strong { display:block; font-size:0.95rem; color:#081421; margin-bottom:0.2rem; }
+.cv-pc-inner p { font-size:0.82rem; color:#5A6B85; margin:0; }
+
+/* The two partner cards were text-only and read as one block at a glance. An icon
+   carries the distinction before the words are read, and the tick states which one
+   is selected in a second place — the border and tint alone were easy to miss. */
+.cv-pc-icon {
+  flex:0 0 auto; width:46px; height:46px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  background:#F1F4F9; color:#5A6B85; transition:background 0.2s, color 0.2s;
+}
+.cv-pc-icon svg { width:24px; height:24px; }
+.cv-partner-card:has(input:checked) .cv-pc-icon { background:#DCE8FF; color:#2563EB; }
+
+.cv-pc-check {
+  flex:0 0 auto; width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:2px solid #D8DFE9; background:#FFF; color:transparent;
+  transition:background 0.2s, border-color 0.2s, color 0.2s;
+}
+.cv-pc-check svg { width:12px; height:12px; }
+.cv-partner-card:has(input:checked) .cv-pc-check {
+  background:#2563EB; border-color:#2563EB; color:#FFF;
+}
+
+.cv-partner-card:hover:not(:has(input:checked)) { border-color:#C7D3E3; }
+.cv-partner-card:hover:not(:has(input:checked)) .cv-pc-icon { background:#E7ECF4; }
+
+@media (max-width:480px) {
+  .cv-pc-icon { width:40px; height:40px; }
+  .cv-pc-icon svg { width:21px; height:21px; }
+}
+
+.cv-review-card { background:#F7F8FA; border:1.5px solid #E8ECF2; border-radius:14px; padding:1.5rem; }
+.cv-review-row { display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid #F1F4F8; font-size:0.88rem; }
+.cv-review-row:last-child { border-bottom:none; }
+.cv-review-row span:first-child { color:#5A6B85; }
+.cv-review-row span:last-child { font-weight:600; color:#081421; }
+
+/* Preview */
+
+.cv-preview-area {
+  position:sticky;
+  /* Only the navbar is fixed now — this used to clear the sticky stepper too. */
+  top:calc(var(--navbar-height, 68px) + 1.25rem);
+  align-self:flex-start;
+  max-height:calc(100vh - var(--navbar-height, 68px) - 2.5rem);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
+@media(max-width:900px){ .cv-preview-area { position:static; max-height:none; overflow:visible; } }
+.cv-preview-label { font-size:0.75rem; font-weight:700; color:#7A8AA3; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.75rem; }
+.cv-preview-tips { margin-top:1rem; background:#fff; border:1.5px solid #E8ECF2; border-radius:16px; padding:1.25rem; }
+.cv-preview-tips p { font-size:0.88rem; margin:0 0 0.75rem; }
+.cv-preview-tips ul { margin:0; padding-left:1.25rem; }
+.cv-preview-tips li { font-size:0.82rem; color:#5A6B85; margin-bottom:0.3rem; }
+
+/* INVESTMENT & EXIT DETAILS  (step 2 of the creation form) */
+.cv-section-head {
+  margin: 1.75rem 0 1.1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #E8ECF2;
+}
+.cv-section-head h3 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #081421;
+  margin: 0 0 0.3rem;
+}
+.cv-section-head p { margin: 0; font-size: 0.83rem; line-height: 1.6; color: #5A6B85; }
+
+.cv-check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 0.5rem;
+}
+.cv-inline-radios { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.cv-check {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid #E8ECF2;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 0.85rem;
+  color: #33415C;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.cv-check:hover { border-color: #2563EB; }
+.cv-check input { accent-color: #2563EB; width: 16px; height: 16px; flex: none; margin: 0; cursor: pointer; }
+
+.cv-check:has(input:checked) {
+  border-color: #2563EB;
+  background: #EFF4FF;
+  color: #081421;
+  font-weight: 600;
+}
+
+/* "Recommended" pill — marks the safe default on a governance choice.
+   Gold, to read as guidance rather than as another selectable state: the
+   blue in this form always means "you picked this". */
+.cv-rec {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  color: var(--gold-600);
+  background: rgba(245, 197, 24, 0.16);
+  border: 1px solid rgba(245, 197, 24, 0.55);
+}
+.form-label .cv-rec { margin-left: 0.45rem; vertical-align: 1px; }
+/* The label turns bold/dark when its radio is checked; the pill must not follow. */
+.cv-check:has(input:checked) .cv-rec { font-weight: 700; color: var(--gold-600); }
+
+/* The whole Capital step after a partner has joined. Readable, copyable, obviously not
+   editable — the founder still needs to SEE these figures, they just cannot move them. */
+.cv-panel--locked .form-control[readonly],
+.cv-panel--locked select:disabled,
+.cv-panel--locked textarea[readonly] {
+  background: #F1F5F9;
+  color: #64748B;
+  cursor: not-allowed;
+  border-color: #E2E8F0;
+}
+.cv-panel--locked input[type="checkbox"]:disabled,
+.cv-panel--locked input[type="radio"]:disabled { cursor: not-allowed; }
+.cv-panel--locked .cv-check,
+.cv-panel--locked .cv-inline-radios label { cursor: not-allowed; opacity: 0.72; }
+.cv-panel--locked .cv-check:hover { border-color: #E8ECF2; }
+/* The live hints under these fields describe a choice nobody can make any more. */
+.cv-panel--locked #cvSilentCapHint,
+.cv-panel--locked #cvMinInvHint,
+.cv-panel--locked #cvDaysHint { display: none; }
+#cvCapitalLock { margin: 0 0 1.1rem; }
+
+/* Partner type after somebody has joined: readable, obviously not clickable. The
+   unchosen card dims so the frozen answer still reads at a glance. */
+.cv-partner-card--locked { cursor: not-allowed; background: #FAFBFC; }
+.cv-partner-card--locked:hover { border-color: #E8ECF2; }
+.cv-partner-card--locked .cv-pc-check { opacity: 0.55; }
+.cv-partner-card--dim { opacity: 0.55; }
+
+/* The founder's Investment Equity % just moved on its own because they changed their
+   contribution. A brief tint so the change is noticed rather than discovered on save. */
+@keyframes cvEquityAutoscale {
+  0%   { background: #FEF6DC; border-color: var(--gold-400, #F5C518); }
+  100% { background: #fff; border-color: #E8ECF2; }
+}
+.cv-equity-autoscaled { animation: cvEquityAutoscale 0.9s ease-out; }
+
+/* Live guidance under Min. Investment per Member: the floor the member cap implies.
+   Neutral while the figure is legal, red once it is not. */
+.cv-field-hint {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #5A6B85;
+}
+.cv-field-hint.cv-hint-error { color: #B91C1C; font-weight: 600; }
+
+/* "Est. Members Needed" in the calc box, once the ticket implies too many partners. */
+.cv-calc-over { color: #B91C1C !important; font-weight: 700; }
+
+/* A field the server will not let this edit move. Replaces the field's error slot,
+   so it must not inherit .form-error's red. */
+.cv-lock-note {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #5A6B85;
+}
+.cv-lock-note .vh-i { color: #8A6D00; }
+
+/* Terms / Privacy consent block, just above the publish bar */
+.cv-consent {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1.5px solid #E8ECF2;
+  border-radius: 12px;
+  background: #F7F8FA;
+}
+
+.cv-conditional {
+  margin-top: 0.75rem;
+  padding: 0.9rem 1rem;
+  background: #F7F9FC;
+  border: 1px solid #E8ECF2;
+  border-radius: 10px;
+}
+.cv-conditional .form-label { margin-bottom: 0.35rem; }
+
+@media (max-width: 640px) {
+  .cv-inline-radios { flex-direction: column; }
+}
+
+#cvStep2 .cv-section-head ~ .form-group,
+#cvStep2 .cv-section-head ~ div[style*="grid"] { margin-bottom: 1.35rem; }
+#cvStep2 .cv-section-head ~ .form-group:last-of-type { margin-bottom: 0.5rem; }
+
+.cv-sample-note {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem 0.85rem;
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1.1rem;
+  background: #FFFBEB;
+  border: 1px solid #F7E08A;
+  border-radius: 12px;
+  color: #7A5E00;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.cv-sample-note > div:last-child { flex: 1 1 320px; min-width: 0; }
+.cv-sample-note strong { font-weight: 800; color: #0B1B2B; }
+.cv-sample-note__tag {
+  flex: 0 0 auto;
+  background: #157347; color: #fff;
+  font-size: 0.68rem; font-weight: 800; letter-spacing: .05em;
+  padding: 0.3rem 0.6rem; border-radius: 6px;
+}
+
+.cv-locked-field {
+  display: flex; flex-direction: column; gap: 0.2rem;
+  background: #F7F8FA; border: 1.5px solid #E8ECF2; border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+}
+.cv-locked-field strong { font-size: 0.92rem; color: #081421; }
+.cv-locked-field span { font-size: 0.78rem; color: #5A6B85; }
+.cv-locked-field a { color: #2563EB; }
+
+/* Equity & salary per role — a 4-column grid that collapses to stacked,
+   labelled rows on narrow screens (a table would overflow instead). */
+.cv-equity-intro {
+  font-size: 0.82rem; color: #5A6B85; line-height: 1.6; margin: 0 0 0.8rem;
+}
+/* What happens above the minimum — the one rule the six columns don't state. */
+.cv-equity-rule {
+  margin: 0.55rem 0 0;
+  padding: 0.6rem 0.75rem;
+  border-left: 3px solid #2563EB;
+  border-radius: 0 8px 8px 0;
+  background: #F4F8FF;
+  font-size: 0.79rem;
+  line-height: 1.6;
+  color: #43536B;
+}
+.cv-equity-rule strong { color: #0F1D2E; }
+.cv-equity-grid {
+  border: 1.5px solid #E8ECF2; border-radius: 12px; overflow: hidden;
+}
+/* Six columns: Role · Investment · Investment Equity % · Operations Equity % ·
+   Total Equity · Monthly Salary. Tight, so the gap shrinks and the two percent
+   inputs get equal, narrow tracks — they only ever hold a number up to 100. */
+.cv-equity-head,
+.cv-equity-row {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 0.8fr 0.8fr 0.5fr 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.7rem 0.75rem;
+}
+.cv-equity-head {
+  background: #F7F8FA;
+  font-size: 0.7rem; font-weight: 800; letter-spacing: .05em;
+  text-transform: uppercase; color: #5A6B85;
+}
+.cv-equity-row + .cv-equity-row,
+.cv-equity-head + .cv-equity-row { border-top: 1px solid #EEF1F6; }
+.cv-equity-role { font-weight: 700; color: #081421; font-size: 0.9rem; }
+.cv-equity-role small { display: block; font-weight: 500; color: #5A6B85; font-size: 0.72rem; }
+.cv-equity-amt { font-weight: 700; color: #0F1D2E; font-size: 0.9rem; }
+.cv-equity-na { font-size: 0.76rem; color: #8A98AC; font-style: italic; }
+.cv-equity-grid .form-control { padding: 0.5rem 0.5rem; font-size: 0.88rem; }
+
+/* Derived, never typed — investment + operations. Reads as an output, not a
+   field the founder has missed. */
+.cv-equity-total { font-weight: 800; color: #2563EB; font-size: 0.95rem; }
+.cv-equity-total.is-empty { color: #8A98AC; font-weight: 600; }
+
+@media (max-width: 780px) {
+  .cv-equity-head { display: none; }
+  .cv-equity-row { grid-template-columns: 1fr; gap: 0.4rem; }
+  .cv-equity-row > [role="cell"]::before,
+  .cv-equity-amt::before {
+    content: attr(data-label);
+    display: block; font-size: 0.68rem; font-weight: 800;
+    letter-spacing: .05em; text-transform: uppercase; color: #8A98AC;
+    margin-bottom: 0.2rem;
+  }
+}
+
+/* Wizard step entrance — the panel used to snap in. Runs whenever a panel
+   loses .hidden, since display:none -> block restarts the animation. */
+@keyframes vhStepIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.cv-panel:not(.hidden) {
+  animation: vhStepIn 0.34s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cv-panel:not(.hidden) { animation: none; }
+}
+
+/* ── Asset class picker ──────────────────────────────────────────────────────
+   A listing may claim up to VH_ASSET_CLASS_MAX classes and name one of its own,
+   so this replaced a single <select>. Chips rather than a multi-select list box:
+   the choices are few and the selected ones have to stay visible while the
+   founder decides, which a scrolling multi-select hides. */
+.cv-class-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.cv-class-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border: 1.5px solid #E8ECF2;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #33415C;
+  cursor: pointer;
+  transition: border-color .18s, background .18s, color .18s;
+  user-select: none;
+}
+.cv-class-chip:hover { border-color: #B9C6D8; }
+.cv-class-chip input { accent-color: #2563EB; margin: 0; cursor: pointer; }
+.cv-class-chip.is-on {
+  border-color: #2563EB;
+  background: #F4F8FF;
+  color: #0F1D2E;
+}
+/* The cap is enforced in JS; unpicked chips grey out once it is reached so the
+   limit is visible before it is hit rather than only as an error afterwards. */
+.cv-class-chip.is-locked {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.cv-class-chip.is-locked input { cursor: not-allowed; }
+.cv-class-chip--custom { border-style: dashed; }
+
+.cv-class-custom {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.6rem;
+}
+.cv-class-custom .form-control { flex: 1; min-width: 0; }
+@media (max-width: 520px) {
+  .cv-class-custom { flex-direction: column; align-items: stretch; }
+}
+
+/* ---------------------------------------------------------------------------
+   Per-side requirements (Partner Settings)
+
+   Two bordered groups so it reads as two questions, not one long column of
+   fields. Either group is hidden outright when the listing has no such role.
+   --------------------------------------------------------------------------- */
+.cv-role-req {
+  border: 1.5px solid #E8ECF2;
+  border-radius: 12px;
+  padding: 1rem 1.1rem 0.4rem;
+  margin-bottom: 1rem;
+  background: #FCFDFF;
+}
+.cv-role-req.hidden { display: none; }
+
+.cv-role-req-head {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #16233B;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid #EDF1F7;
+}
+/* The role descriptor beside the heading. Gold, not grey: at 0.74rem in the same
+   grey as every hint on the page it read as another hint and the two boxes looked
+   alike at a glance — which is the one thing they must not do, since each asks a
+   different question. Same gold family as .cv-rec, but no uppercase tracking: this
+   describes the role, it does not recommend anything. */
+.cv-role-req-head small {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--gold-600, #8A6D00);
+  background: rgba(245, 197, 24, 0.16);
+  border: 1px solid rgba(245, 197, 24, 0.42);
+  border-radius: 999px;
+  padding: 0.16rem 0.5rem;
+  margin-left: 0.5rem;
+  vertical-align: 1px;
+}
+
+/* ── CHIP (TAG) INPUT ─────────────────────────────────────────────────────────
+   Skills entered one at a time, each becoming a removable tag, at the client's
+   request (6 Sep 2026). Built by setupChipInput() in create-venture.js around the
+   original text input, which stays in the DOM as the hidden comma-joined value —
+   so this is styling for a view, not for a new field. */
+.chip-box {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem;
+  min-height: 46px; padding: 0.4rem 0.6rem;
+  background: #fff; border: 1.5px solid #E8ECF2; border-radius: 10px;
+  cursor: text; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.chip-box:focus-within { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+.chip-box.is-invalid   { border-color: var(--danger-text); box-shadow: 0 0 0 3px rgba(179,38,30,.12); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.25rem 0.35rem 0.25rem 0.6rem; border-radius: 8px;
+  background: #EFF4FF; border: 1px solid #D5E2FB;
+  font-size: 0.82rem; font-weight: 600; color: #1E40AF;
+  max-width: 100%; overflow-wrap: anywhere;
+}
+.chip-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 17px; height: 17px; flex: none; padding: 0;
+  border: 0; border-radius: 5px; background: transparent;
+  color: #5B7BC4; font-size: 0.95rem; line-height: 1; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.chip-x:hover { background: #D5E2FB; color: #1E3A8A; }
+
+/* The typing field is the box's own input: no border of its own, and it grows to
+   fill the row so the whole control still reads as one field. */
+.chip-entry {
+  flex: 1; min-width: 140px;
+  border: 0; outline: 0; background: transparent; padding: 0.25rem 0.1rem;
+  font-family: inherit; font-size: 0.9rem; color: #081421;
+}
+.chip-entry::placeholder { color: #9AA8BD; }

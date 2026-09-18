@@ -1,0 +1,420 @@
+/* VENTURES HARBOR — SHARED VENTURE CARD (venture-card.css) */
+
+.vh-vcard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid #E8ECF2;
+  box-shadow: 0 2px 10px rgba(8, 20, 33, .05);
+}
+
+.vh-vcard .vc-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0;
+}
+.vh-vcard .vc-cover {
+  flex: none;
+  width: 88px;
+  height: 88px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+
+  background: linear-gradient(140deg, #EFF4FF, #E3ECFF);
+  color: #2563EB;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  border: 1px solid rgba(37, 99, 235, .1);
+}
+.vh-vcard .vc-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.vh-vcard .vc-title-block { flex: 1; min-width: 0; }
+.vh-vcard .vc-title {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -.01em;
+  color: #081421;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.vh-vcard .vc-byline {
+  margin-top: 5px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #7A8AA3;
+  line-height: 1.45;
+}
+.vh-vcard .vc-byline .vc-sep { margin: 0 6px; color: #D3DCE8; }
+
+.vh-vcard .vc-chips {
+  margin-top: 9px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.vh-vcard .vc-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #7A8AA3;
+}
+.vh-vcard .vc-loc svg { flex: none; }
+.vh-vcard .vc-chip {
+  padding: 4px 10px;
+  border-radius: 7px;
+  background: #F1F5F9;
+  color: #475569;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vh-vcard .vc-chip--ptype {
+  font-weight: 700;
+  letter-spacing: .01em;
+  background: #E7EEFB;
+  color: #1D4ED8;
+}
+
+.vh-vcard .vc-chip--ptype-silent { background: #FEF3C7; color: #92400E; }
+.vh-vcard .vc-chip--ptype-active { background: #FEF3C7; color: #92400E; }
+
+.vh-vcard .vc-sample-ribbon {
+  margin: -20px -20px 0;
+  padding: 8px 20px;
+  border-radius: 15px 15px 0 0;
+  background: #F5C518;
+  color: #0B1B2B;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.35;
+}
+.vh-vcard--sample {
+  border-color: #F5C518;
+  border-width: 2px;
+}
+
+.vc-row.vh-vcard .vc-sample-ribbon {
+  grid-column: 1 / -1;
+  margin: -16px -20px 0;
+  padding: 7px 20px;
+}
+
+/* Row 1: Target · Min. Ticket · Founder Invested */
+.vh-vcard .vc-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #F7F8FA;
+}
+
+.vh-vcard .vc-stat { display: block; min-width: 0; }
+.vh-vcard .vc-stat--center { text-align: center; }
+.vh-vcard .vc-stat--right { text-align: right; }
+.vh-vcard .vc-stat-value {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #081421;
+}
+.vh-vcard .vc-stat-label {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #93A3B8;
+}
+
+/* "Left to Raise" sits in the middle of row 2, between Total Raised (column 1,
+   auto-placed) and Funded (pinned to column 3). That middle cell was empty
+   before, so the figure costs the card no extra height. */
+.vh-vcard .vc-stat--remaining { grid-column: 2; text-align: center; }
+.vh-vcard .vc-stat--remaining .vc-stat-value { color: #33415C; }
+
+.vh-vcard .vc-stat--funded { grid-column: 3; text-align: right; }
+
+.vh-vcard .vc-stat--funded .vc-stat-value { color: var(--vc-accent, #16a34a); }
+
+.vh-vcard .vc-progress {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: 999px;
+  background: #E4E9F0;
+  overflow: hidden;
+}
+.vh-vcard .vc-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--vc-accent, #16a34a);
+  transition: width 1.2s cubic-bezier(.4, 0, .2, 1);
+}
+
+.vh-vcard .vc-capacity {
+  display: grid;
+  gap: 9px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #E4E9F0;
+}
+.vh-vcard .vc-cap-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 8px;
+}
+.vh-vcard .vc-cap-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #64748B;
+}
+.vh-vcard .vc-cap-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.vh-vcard .vc-cap-dot--silent { background: #16a34a; }
+.vh-vcard .vc-cap-dot--active { background: #2563EB; }
+.vh-vcard .vc-cap-figs {
+  font-size: 12px;
+  font-weight: 700;
+  color: #33415C;
+  font-variant-numeric: tabular-nums;
+}
+
+.vh-vcard .vc-cap-state {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  color: #2563EB;
+}
+.vh-vcard .vc-cap-row--full .vc-cap-state { color: #B45309; }
+.vh-vcard .vc-cap-track {
+  grid-column: 1 / -1;
+  height: 5px;
+  border-radius: 999px;
+  background: #E4E9F0;
+  overflow: hidden;
+}
+.vh-vcard .vc-cap-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 1.2s cubic-bezier(.4, 0, .2, 1);
+}
+.vh-vcard .vc-cap-fill--silent { background: #16a34a; }
+.vh-vcard .vc-cap-fill--active { background: #2563EB; }
+
+.vh-vcard .vc-cap-note {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #FDE68A;
+  background: #FFFBEB;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #92400E;
+}
+.vh-vcard .vc-cap-note strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: #78350F;
+}
+
+/* ---------- meta row ---------- */
+
+.vh-vcard .vc-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding-top: 14px;
+  border-top: 1px solid #EFF2F6;
+  margin: 0;
+}
+.vh-vcard .vc-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #5A6B85;
+}
+.vh-vcard .vc-meta-item svg { flex: none; color: #94A3B8; }
+
+/* ---------- actions ---------- */
+.vh-vcard .vc-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+.vh-vcard .btn-join {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 16px;
+  border-radius: 10px;
+  background: #2563EB;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background .25s, box-shadow .25s;
+}
+.vh-vcard .btn-join:hover { background: #1D4FD8; box-shadow: 0 6px 16px rgba(37, 99, 235, .28); }
+
+.vh-vcard .btn-join--state {
+  cursor: default;
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+}
+.vh-vcard .btn-join--state:hover { background: #F1F5F9; box-shadow: none; }
+.vh-vcard .btn-join--member  { background: #DCFCE7; color: #15803D; border-color: #BBF7D0; }
+.vh-vcard .btn-join--member:hover  { background: #DCFCE7; }
+.vh-vcard .btn-join--founder { background: #E0E7FF; color: #3730A3; border-color: #C7D2FE; }
+.vh-vcard .btn-join--founder:hover { background: #E0E7FF; }
+
+.vh-vcard .btn-join--sample { background: #157347; border-color: #157347; color: #fff; }
+.vh-vcard .btn-join--sample:hover { background: #10603A; box-shadow: 0 6px 16px rgba(21, 115, 71, .3); }
+
+.vh-vcard .btn-join--full { background: #DCFCE7; color: #15803D; border-color: #BBF7D0; }
+.vh-vcard .btn-join--full:hover { background: #DCFCE7; }
+
+.vh-vcard .btn-join--active { background: #15803D; }
+.vh-vcard .btn-join--active:hover { background: #166534; box-shadow: 0 6px 16px rgba(21, 128, 61, .3); }
+
+/* Fully funded but the listing is still running — out of room, not closed.
+   The brand GOLD, at the client's request: "jese hi Venture full hoga Join Waitlist ma
+   convert ho jayega uske colour ko bhi yellow ma convert kar dena, investors ko easyness
+   hogi". It was a dark amber, which read as a muted variant of the ordinary Co-Own blue
+   and so did not announce that the Asset had changed state. Gold is the one colour on
+   this site nothing else on a card uses, so the swap is legible at a glance down a grid.
+   Dark navy text, not white — #F5C518 against white fails contrast badly. */
+.vh-vcard .btn-join--waitlist {
+  background: linear-gradient(135deg, var(--gold-500, #C79E0F), var(--gold-400, #F5C518));
+  border-color: var(--gold-500, #C79E0F);
+  color: var(--navy-900, #081421);
+  font-weight: 700;
+}
+.vh-vcard .btn-join--waitlist:hover {
+  background: linear-gradient(135deg, #B8900D, #EEBE10);
+  box-shadow: 0 6px 16px rgba(245, 197, 24, .45);
+}
+
+/* Already waiting: still a link (it opens the Waitlist page) but visually a state,
+   so it reads like the other viewer-state chips rather than a call to action. Pulled
+   into the same gold family as the button above, or the two halves of one feature would
+   sit next to each other in two different yellows. */
+.vh-vcard .btn-join--onwaitlist {
+  background: #FEF8E1; color: var(--gold-600, #8A6D00); border-color: rgba(245, 197, 24, .5);
+}
+.vh-vcard .btn-join--onwaitlist:hover { background: #FDF2CC; }
+
+.vh-vcard .btn-join--pay { background: #D97706; }
+.vh-vcard .btn-join--pay:hover { background: #B45309; box-shadow: 0 6px 16px rgba(217, 119, 6, .3); }
+.vh-vcard .btn-details {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 10px;
+  border-radius: 10px;
+  background: transparent;
+  color: #2563EB;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background .25s;
+}
+.vh-vcard .btn-details:hover { background: #F1F5FD; }
+
+.vh-vcard .vc-wish {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid #E4E9F0;
+  background: #fff;
+  color: #94A3B8;
+  cursor: pointer;
+  font: inherit;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.vh-vcard .vc-wish svg { fill: none; stroke: currentColor; }
+.vh-vcard .vc-wish:hover { color: #2563EB; border-color: rgba(37, 99, 235, .4); }
+.vh-vcard .vc-wish[aria-pressed="true"] {
+  color: #2563EB;
+  background: #EFF4FF;
+  border-color: rgba(37, 99, 235, .35);
+}
+.vh-vcard .vc-wish[aria-pressed="true"] svg { fill: currentColor; }
+.vh-vcard .vc-wish[disabled] { opacity: .55; cursor: default; }
+
+.vh-vcard .vc-wish.is-popping svg { animation: vc-wish-pop .32s ease; }
+@keyframes vc-wish-pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.28); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- narrow cards ---------- */
+@media (max-width: 420px) {
+  .vh-vcard { padding: 16px; gap: 14px; }
+  .vh-vcard .vc-cover { width: 68px; height: 68px; font-size: 24px; }
+  .vh-vcard .vc-title { font-size: 15.5px; }
+  .vh-vcard .vc-stats { padding: 12px; gap: 12px 8px; }
+  .vh-vcard .vc-stat-value { font-size: 14px; }
+  .vh-vcard .vc-stat-label { font-size: 9.5px; letter-spacing: .05em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vh-vcard .vc-progress-fill { transition: none; }
+  .vh-vcard .vc-wish.is-popping svg { animation: none; }
+}
